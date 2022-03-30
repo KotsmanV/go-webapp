@@ -1,0 +1,27 @@
+<nb-layout>
+    
+    <nb-layout-column></nb-layout-column>
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-header>
+        <h5>Game Over Admin</h5>
+      </nb-card-header>
+      <nb-card-body>
+        <form class="go-form signin" [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="go-form-row">
+            <label for="username">Username</label>
+            <input nbInput id="username" formControlName="username" placeholder="username" type="text" />
+          </div>
+          <div class="go-form-row">
+            <label for="password">Password</label>
+            <input nbInput id="password" formControlName="password" placeholder="password" type="text" />
+          </div>
+          <button nbButton class="submit-button" type="submit">Login</button>
+        </form>
+
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+  <nb-layout-column></nb-layout-column>
+
+</nb-layout>

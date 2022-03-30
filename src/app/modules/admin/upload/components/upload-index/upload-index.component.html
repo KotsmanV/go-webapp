@@ -1,0 +1,23 @@
+<nb-card>
+    <nb-card-header>
+      <h5>Upload - Index</h5>
+    </nb-card-header>
+    <nb-card-body>
+      <table [nbTreeGrid]="posterDatasource">
+        <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="columns"></tr>
+        <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: columns"></tr>
+
+        <ng-container   *ngFor="let column of columns; let i = index"
+                        [nbTreeGridColumnDef]="column"
+                        [showOn]="getShowOn(i)">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>{{column}}</th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column] || '-'}}</td>
+
+
+
+        </ng-container>
+
+      </table>
+      
+    </nb-card-body>
+  </nb-card>

@@ -1,0 +1,42 @@
+nb-layout-column{
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+nb-card{
+    display: inherit;
+}
+
+nb-card-header{
+    text-align: center;
+}
+
+nb-card-body{
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.go-form{
+    display: grid;
+    grid-auto-flow: row;
+    gap: 1rem;
+    place-items: center;
+}
+
+.go-form-row{
+    display: inherit;
+    width: 20rem;
+}
+
+label {
+    font-family: 'Open Sans, sans-serif';
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.submit-button{
+    justify-self: center;
+}

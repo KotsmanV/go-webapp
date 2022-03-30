@@ -1,0 +1,21 @@
+.go-form{
+    display: grid;
+    grid-auto-flow: row;
+    gap: 1rem;
+    align-items: center;
+}
+
+.go-form-row{
+    display: inherit;
+}
+
+label {
+    font-family: 'Open Sans, sans-serif';
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.submit-button{
+    justify-self: center;
+}

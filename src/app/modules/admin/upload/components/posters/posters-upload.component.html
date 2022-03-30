@@ -1,0 +1,23 @@
+<nb-card>
+  <nb-card-header>
+    <h5>Upload - Posters</h5>
+  </nb-card-header>
+  <nb-card-body>
+    
+    <form class="go-form poster" [formGroup]="posterForm" (ngSubmit)="onFormSubmit()">
+      <div class="go-form-row">
+        <label for="poster-title">Τίτλος</label>
+        <input nbInput id="poster-title" formControlName="title" placeholder="Βάλε τίτλο!" type="text" />
+      </div>
+      <div class="go-form-row">
+        <label for="poster-poster">Αφίσα</label>
+        <input nbInput id="poster-poster" formControlName="poster" type="file" (change)="pushFileToArray($event.target)"/>
+      </div>
+      <div class="go-form-row">
+        <label for="poster-text">Περιεχόμενο</label>
+        <textarea nbInput id="poster-text" formControlName="text" placeholder="Βάλε το κείμενο της αφίσας!" fieldSize="giant" rows="15" fullWidth></textarea>
+      </div>
+      <button nbButton class="submit-button" placeholder="Ανέβασε την αφίσα!" type="submit">Αποθηκευση</button>
+    </form>
+  </nb-card-body>
+</nb-card>

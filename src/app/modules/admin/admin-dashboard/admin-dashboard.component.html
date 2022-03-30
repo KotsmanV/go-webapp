@@ -1,0 +1,27 @@
+<nb-layout>
+  <nb-layout-header fixed>
+    <!-- <div class="admin-header">
+        <h2>Game Over Admin</h2>
+
+        <button nbButton (click)="logout()">Logout</button>
+    </div> -->
+        <h2 >Game Over Admin</h2>
+        <button nbButton (click)="logout()" class="logout-btn">Logout</button>
+  </nb-layout-header>
+
+  <nb-sidebar>
+    <nb-menu [items]="menuItems">
+    </nb-menu>
+  </nb-sidebar>
+
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+
+
+  <nb-layout-footer fixed>
+    <!-- Insert footer here -->
+  </nb-layout-footer>
+
+</nb-layout>
