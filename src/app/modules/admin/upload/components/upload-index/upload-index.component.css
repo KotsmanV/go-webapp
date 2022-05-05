@@ -1,0 +1,12 @@
+[role="table"]{
+    width: 100%;
+}
+
+img{
+    width: 3rem;
+}
+
+[role="row"],
+.table-row{
+    padding: 1rem;
+}

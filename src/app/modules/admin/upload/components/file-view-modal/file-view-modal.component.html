@@ -1,0 +1,10 @@
+<nb-card class="image-display-modal">
+    <nb-card-header>Διάλεξε αφίσα</nb-card-header>
+    <nb-card-body>
+        <div class="images">
+            <div class="image-container" *ngFor="let poster of urls">
+                <img class="image" [src]="poster" (click)="selectImage($event)">
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

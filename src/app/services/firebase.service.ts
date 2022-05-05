@@ -22,19 +22,20 @@ export class FirebaseService {
 
   getPosters(){
     let posters:Poster[] = [];
-    getDocs(collection(this.db,`posters`))
+    return getDocs(collection(this.db,`posters`))
             .then(response => {
               response.docs.forEach(d=>posters.push(d.data() as Poster))
+              return posters;
             })
             .catch(error=>{
               console.error(error);
             });
-    return posters;
+    
   }
 
   async addPoster(poster:Poster){
     try{
-      await addDoc(collection(this.db,`posters`),poster);
+      await addDoc(collection(this.db,`posters`),Object.assign({}, poster));
     }catch(e){
       console.error(`Poster was not added.`, e)
     }

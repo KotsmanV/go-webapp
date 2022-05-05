@@ -9,6 +9,27 @@
     display: inherit;
 }
 
+.poster-selection{
+    gap:2rem;
+}
+
+.select-poster-btn{
+    justify-self: left;
+}
+
+.poster-container{
+    /* max-width: 10rem;
+    max-height: 15rem; */
+}
+
+img{
+    width: 20rem;
+    height: calc(20rem * 1.5);
+}
+
+
+
+
 label {
     font-family: 'Open Sans, sans-serif';
     font-size: 1rem;

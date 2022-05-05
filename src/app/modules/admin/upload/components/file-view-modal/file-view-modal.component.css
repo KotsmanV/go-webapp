@@ -1,0 +1,26 @@
+.image-display-modal{
+    width: 70rem;
+    max-width: 150rem;
+}
+.images{
+    max-width: 100rem;
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit,minmax(15rem, 1fr));
+    gap:1rem;
+    overflow-x: scroll;
+}
+
+.image-container{
+
+}
+
+img{
+    width: 15rem;
+    height: 15rem;
+}
+
+img:hover{
+    cursor: pointer;
+}

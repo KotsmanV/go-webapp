@@ -7,10 +7,20 @@ import { FestivalUploadComponent } from './components/festivals/festivals-upload
 import { TextUploadComponent } from './components/texts/texts-upload.component';
 import { MagazineUploadComponent } from './components/magazines/magazines-upload.component';
 import { UploadBaseComponent } from './components/upload-home/upload-base.component';
-import { NbCardModule,NbInputModule,NbLayoutModule,NbRouteTabsetModule,NbButtonModule, NbTreeGridModule  } from '@nebular/theme';
+import {  
+  NbCardModule,
+  NbInputModule,
+  NbLayoutModule,
+  NbRouteTabsetModule,
+  NbButtonModule, 
+  NbTreeGridModule, 
+  NbDialogModule  
+} from '@nebular/theme';
 import { UploadRoutingModule } from './upload-routing.module';
 import { UploadIndexComponent } from './components/upload-index/upload-index.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FileViewModalComponent } from './components/file-view-modal/file-view-modal.component';
+import { MatTableModule } from '@angular/material/table'
 
 @NgModule({
   declarations: [
@@ -19,7 +29,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TextUploadComponent,
     MagazineUploadComponent,
     UploadBaseComponent,
-    UploadIndexComponent
+    UploadIndexComponent,
+    FileViewModalComponent
   ],
   imports: [
     CommonModule,
@@ -31,6 +42,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NbInputModule,
     NbButtonModule,
     NbTreeGridModule,
+    NbDialogModule.forRoot(),
+    MatTableModule
   ]
 })
 export class UploadModule { }

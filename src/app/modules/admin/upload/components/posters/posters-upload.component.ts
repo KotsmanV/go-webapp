@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NbDialogConfig, NbDialogService } from '@nebular/theme';
 import { Poster } from 'src/app/models/database-models';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { ModalService } from 'src/app/services/modal.service';
+import { FileViewModalComponent } from '../file-view-modal/file-view-modal.component';
 
 @Component({
   selector: 'app-posters',
@@ -11,18 +15,14 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class PosterUploadComponent implements OnInit {
 
-  poster: Poster = {
-    title:``,
-    text:``,
-    photoUrl:``
-  }
+  poster: Poster = new Poster();
 
   posterForm = new FormGroup({
     title: new FormControl(``,[
       Validators.required,
       Validators.minLength(5)
     ]),
-    poster: new FormControl(null),
+    photoUrl: new FormControl(``),
     text: new FormControl(``)
   },[
     
@@ -30,28 +30,38 @@ export class PosterUploadComponent implements OnInit {
 
   fileArray:File[] = [];
 
+  posterUrls:string[] = [];
+  selectedUrl!:string;
 
-  constructor(private firebase:FirebaseService, private fileUpload:FileUploadService) { }
+
+  constructor(private firebase:FirebaseService,
+              private fileService:FileUploadService,
+              private dialogService: NbDialogService,
+              private modalService: ModalService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.getPosterUrls();
+
+    this.modalService.selectedImageUrl.subscribe((selectedUrl)=>{
+      this.posterForm.get(`photoUrl`)?.setValue(selectedUrl);
+      this.selectedUrl = selectedUrl;
+    })
+  
   }
 
   createPoster(){
     this.poster.title = this.posterForm.get(`title`)?.value;
+    this.poster.photoUrl = this.posterForm.get(`photoUrl`)?.value;
     this.poster.text = this.posterForm.get(`text`)?.value;
+    this.poster.dateUploaded = new Date();
+    this.poster.dateReleased = new Date(2022,1,1);
   }
 
   pushFileToArray(eventTarget:any){
     for (const file of eventTarget.files) {
       this.fileArray.push(file)
     }
-  }
-
-  uploadFiles(){
-    for (const file of this.fileArray) {
-      this.fileUpload.uploadFile(file, file.name);
-    }
-    this.fileUpload
   }
 
   validatePoster():boolean{
@@ -69,13 +79,41 @@ export class PosterUploadComponent implements OnInit {
 
   onFormSubmit(){
     this.createPoster();
-    console.log(this.posterForm.valid);
     if(this.posterForm.valid){
-      console.log(`uploaded`);
       this.uploadPoster();
+      this.router.navigate([`admin/upload/index`])
     }else{
-      console.log(`form errors!`);
+      console.error(`form errors!`);
     };
-
   }
+
+  getPosterUrls(){
+    this.fileService.getAllFileUrls(`posters`).subscribe({
+      next: resp =>{
+        this.posterUrls = resp;
+      },
+      error: error =>{
+        console.error(error);
+      }
+    })
+  }
+
+  openFileDisplayModal(event:any){
+    event.preventDefault();
+    this.dialogService.open(FileViewModalComponent,{
+      context: {
+        urls: this.posterUrls
+      }
+    })
+    
+  }
+    
+    
+  //   then(urls=>{
+  //     console.table(urls);      
+  //     if(Array.isArray(urls)){
+  //       this.posterUrls = urls;        
+  //     }
+  //   })
+  // }
 }

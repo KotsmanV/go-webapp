@@ -9,9 +9,14 @@
         <label for="poster-title">Τίτλος</label>
         <input nbInput id="poster-title" formControlName="title" placeholder="Βάλε τίτλο!" type="text" />
       </div>
-      <div class="go-form-row">
+      <div class="go-form-row poster-selection">
         <label for="poster-poster">Αφίσα</label>
-        <input nbInput id="poster-poster" formControlName="poster" type="file" (change)="pushFileToArray($event.target)"/>
+        <!-- <input nbInput id="poster-poster" formControlName="poster" type="file" (change)="pushFileToArray($event.target)"/> -->
+        <input nbInput id="poster-poster" formControlName="photoUrl" type="text" hidden/>
+        <button nbButton class="select-poster-btn" (click)="openFileDisplayModal($event)">ΔΙΑΛΕΞΕ ΑΦΙΣΑ</button>
+        <div class="poster-container" *ngIf="selectedUrl">
+          <img [src]="selectedUrl">
+        </div>
       </div>
       <div class="go-form-row">
         <label for="poster-text">Περιεχόμενο</label>
