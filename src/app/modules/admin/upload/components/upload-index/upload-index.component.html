@@ -1,29 +1,120 @@
-<nb-card *ngIf="posters">
+<nb-card>
     <nb-card-header>
       <h5>Upload - Index</h5>
     </nb-card-header>
     <nb-card-body>
-      <table mat-table [dataSource]="posterDatasource">
-        <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef>Title</th>
-          <td mat-cell *matCellDef="let poster">{{poster.title}}</td>
-        </ng-container>
-        <ng-container matColumnDef="uploadedDt">
-          <th mat-header-cell *matHeaderCellDef>Uploaded</th>
-          <td mat-cell *matCellDef="let poster">{{showDate(poster.dateUploaded) | date }}</td>
-        </ng-container>
-        <ng-container matColumnDef="releasedDt">
-          <th mat-header-cell *matHeaderCellDef>Released</th>
-          <td mat-cell *matCellDef="let poster">{{showDate(poster.dateReleased) | date }}</td>
-        </ng-container>
-        <ng-container matColumnDef="image">
-          <th mat-header-cell *matHeaderCellDef>Image</th>
-          <td mat-cell *matCellDef="let poster"><img [src]="poster.photoUrl" target="blank"></td>
-        </ng-container>
+      <nb-tabset (changeTab)="getDocuments($event)">
+        <nb-tab [tabTitle]="documentTypes.posters">
+          <table mat-table [dataSource]="posterDatasource" *ngIf="posters">
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Title</th>
+              <td mat-cell *matCellDef="let poster">{{poster.title}}</td>
+            </ng-container>
+            <ng-container matColumnDef="uploadedDt">
+              <th mat-header-cell *matHeaderCellDef>Uploaded</th>
+              <td mat-cell *matCellDef="let poster">{{showDate(poster.dateUploaded) | date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="releasedDt">
+              <th mat-header-cell *matHeaderCellDef>Released</th>
+              <td mat-cell *matCellDef="let poster">{{showDate(poster.dateReleased) | date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="image">
+              <th mat-header-cell *matHeaderCellDef>Image</th>
+              <td mat-cell *matCellDef="let poster"><img [src]="poster.photoUrl" target="blank"></td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="posterColumns" class="table-row"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: posterColumns" class="table-row"></tr>
+          </table>
+        </nb-tab>
+        <nb-tab [tabTitle]="documentTypes.articles">
+          <table mat-table [dataSource]="articleDatasource"  *ngIf="articles">
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Title</th>
+              <td mat-cell *matCellDef="let article">{{article.title}}</td>
+            </ng-container>
+            <ng-container matColumnDef="uploadedDt">
+              <th mat-header-cell *matHeaderCellDef>Uploaded</th>
+              <td mat-cell *matCellDef="let article">{{showDate(article.dateUploaded) | date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="releasedDt">
+              <th mat-header-cell *matHeaderCellDef>Released</th>
+              <td mat-cell *matCellDef="let article">{{showDate(article.dateReleased) | date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="image">
+              <th mat-header-cell *matHeaderCellDef>Image</th>
+              <td mat-cell *matCellDef="let article"><img [src]="article.photoUrl" target="blank"></td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="articleColumns" class="table-row"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: articleColumns" class="table-row"></tr>
+          </table>
 
-        <tr mat-header-row *matHeaderRowDef="columns" class="table-row"></tr>
-        <tr mat-row *matRowDef="let myRowData; columns: columns" class="table-row"></tr>
-      </table>
-      
+        </nb-tab>
+        <nb-tab [tabTitle]="documentTypes.festivals">
+          <table mat-table [dataSource]="festivalDatasource"  *ngIf="festivals">
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Title</th>
+              <td mat-cell *matCellDef="let festival">{{festival.title}}</td>
+            </ng-container>
+            <ng-container matColumnDef="uploadedDt">
+              <th mat-header-cell *matHeaderCellDef>Uploaded</th>
+              <td mat-cell *matCellDef="let festival">{{showDate(festival.dateUploaded) | date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="releasedDt">
+              <th mat-header-cell *matHeaderCellDef>Released</th>
+              <td mat-cell *matCellDef="let festival">{{showDate(festival.dateReleased) | date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="poster">
+              <th mat-header-cell *matHeaderCellDef>Poster</th>
+              <td mat-cell *matCellDef="let festival"><img [src]="festival.posterUrl" target="blank"></td>
+            </ng-container>
+            <ng-container matColumnDef="covers">
+              <th mat-header-cell *matHeaderCellDef>Covers</th>
+              <td mat-cell *matCellDef="let festival">
+                <div *ngFor="let cover of festival.covers">
+                  <img [src]="festival.posterUrl" target="blank">
+                </div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="photos">
+              <th mat-header-cell *matHeaderCellDef>Photos</th>
+              <td mat-cell *matCellDef="let festival">{{festival.photos? festival.photos.length : 0}}</td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="festivalColumns" class="table-row"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: festivalColumns" class="table-row"></tr>
+          </table>
+        </nb-tab>
+        <nb-tab [tabTitle]="documentTypes.presentations">
+          <table mat-table [dataSource]="presentationDatasource"  *ngIf="presentations">
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Title</th>
+              <td mat-cell *matCellDef="let presentation">{{presentation.title}}</td>
+            </ng-container>
+            <ng-container matColumnDef="uploadedDt">
+              <th mat-header-cell *matHeaderCellDef>Uploaded</th>
+              <td mat-cell *matCellDef="let presentation">{{showDate(presentation.dateUploaded) | date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="releasedDt">
+              <th mat-header-cell *matHeaderCellDef>Released</th>
+              <td mat-cell *matCellDef="let presentation">{{showDate(presentation.dateReleased) | date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="poster">
+              <th mat-header-cell *matHeaderCellDef>Poster</th>
+              <td mat-cell *matCellDef="let presentation"><img [src]="presentation.photoUrl" target="blank"></td>
+            </ng-container>
+            <ng-container matColumnDef="cover">
+              <th mat-header-cell *matHeaderCellDef>Cover</th>
+              <td mat-cell *matCellDef="let presentation"><img [src]="presentation.photoUrl" target="blank"></td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="presentationColumns" class="table-row"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: presentationColumns" class="table-row"></tr>
+          </table>
+        </nb-tab>
+        <!-- <nb-tab [tabTitle]="documentTypes.magazines"></nb-tab> -->
+
+      </nb-tabset>
     </nb-card-body>
   </nb-card>

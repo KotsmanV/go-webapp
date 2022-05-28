@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbDialogConfig, NbDialogService } from '@nebular/theme';
-import { Poster } from 'src/app/models/database-models';
+import { DatabaseFolder, Poster } from 'src/app/models/database-models';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { ModalService } from 'src/app/services/modal.service';
@@ -23,6 +23,7 @@ export class PosterUploadComponent implements OnInit {
       Validators.minLength(5)
     ]),
     photoUrl: new FormControl(``),
+    dateReleased: new FormControl(),
     text: new FormControl(``)
   },[
     
@@ -54,8 +55,8 @@ export class PosterUploadComponent implements OnInit {
     this.poster.title = this.posterForm.get(`title`)?.value;
     this.poster.photoUrl = this.posterForm.get(`photoUrl`)?.value;
     this.poster.text = this.posterForm.get(`text`)?.value;
-    this.poster.dateUploaded = new Date();
-    this.poster.dateReleased = new Date(2022,1,1);
+    this.poster.dateUploaded = new Date(2022,1,1);
+    this.poster.dateReleased = this.posterForm.get(`dateReleased`)?.value;
   }
 
   pushFileToArray(eventTarget:any){
@@ -71,7 +72,7 @@ export class PosterUploadComponent implements OnInit {
   }
 
   uploadPoster(){
-    this.firebase.addPoster(this.poster)
+    this.firebase.addDocument(DatabaseFolder.posters, this.poster)
       .catch(error=>{
         console.error(error);
       });

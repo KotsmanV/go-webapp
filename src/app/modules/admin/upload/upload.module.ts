@@ -14,13 +14,17 @@ import {
   NbRouteTabsetModule,
   NbButtonModule, 
   NbTreeGridModule, 
-  NbDialogModule  
+  NbDialogModule,  
+  NbDatepickerModule,
+  NbTabsetModule
 } from '@nebular/theme';
 import { UploadRoutingModule } from './upload-routing.module';
 import { UploadIndexComponent } from './components/upload-index/upload-index.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FileViewModalComponent } from './components/file-view-modal/file-view-modal.component';
-import { MatTableModule } from '@angular/material/table'
+import { MatTableModule } from '@angular/material/table';
+import { PublicationsComponent } from './components/publications/publications.component';
+import { PresentationsComponent } from './components/presentations/presentations.component'
 
 @NgModule({
   declarations: [
@@ -30,7 +34,9 @@ import { MatTableModule } from '@angular/material/table'
     MagazineUploadComponent,
     UploadBaseComponent,
     UploadIndexComponent,
-    FileViewModalComponent
+    FileViewModalComponent,
+    PublicationsComponent,
+    PresentationsComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +48,9 @@ import { MatTableModule } from '@angular/material/table'
     NbInputModule,
     NbButtonModule,
     NbTreeGridModule,
+    NbTabsetModule,
     NbDialogModule.forRoot(),
+    NbDatepickerModule.forRoot(),
     MatTableModule
   ]
 })

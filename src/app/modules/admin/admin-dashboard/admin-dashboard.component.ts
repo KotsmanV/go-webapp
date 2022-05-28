@@ -53,21 +53,21 @@ export class AdminDashboardComponent implements OnInit {
       ]
 
     },
-    {
-      title: `statistics`,
-      link: `statistics`,
-      icon: `pie-chart-outline`
-    },
-    {
-      title:`publications`,
-      link:`publications`,
-      icon:`book`
-    },
-    {
-      title: `users`,
-      link: `users`,
-      icon: `lock-outline`
-    },
+    // {
+    //   title: `statistics`,
+    //   link: `statistics`,
+    //   icon: `pie-chart-outline`
+    // },
+    // {
+    //   title:`publications`,
+    //   link:`publications`,
+    //   icon:`book`
+    // },
+    // {
+    //   title: `users`,
+    //   link: `users`,
+    //   icon: `lock-outline`
+    // },
     {
       title:`logout`,
       icon:`key-outline`

@@ -1,0 +1,28 @@
+.navbar-container{
+    display: grid;
+    place-items: center;
+
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
+    /* padding: 0.5rem; */
+}
+
+.menu{
+    list-style: none;
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(2,1fr) 1.5fr repeat(2,1fr);
+
+    place-items: center;
+    gap:0.5rem;
+}
+
+.menu-item{
+    padding: 0.5rem;
+}
+
+svg{
+    width: 6rem;
+    height: 2rem;
+}
