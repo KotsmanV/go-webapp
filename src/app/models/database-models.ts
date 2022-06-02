@@ -1,12 +1,13 @@
-export enum DatabaseFolder{
-    posters = `posters`,
-    articles = `articles`,
-    presentations = `presentations`,
-    festivals = `festivals`,
-    magazines = `magazines`
+export enum DocumentTypes{
+    poster = `posters`,
+    article = `articles`,
+    presentation = `presentations`,
+    festival = `festivals`,
+    magazine = `magazines`
 }
 
 export interface Poster{
+    id:string;
     title:string,
     text:string,
     photoUrl:string,
@@ -15,6 +16,7 @@ export interface Poster{
 }
 
 export class Poster implements Poster{
+    id = ``;
     title = ``;
     text = ``;
     photoUrl = ``;
@@ -23,6 +25,7 @@ export class Poster implements Poster{
 }
 
 export interface Presentation{
+    id:string;
     title:string,
     text:string,
     posterUrl:string,
@@ -33,6 +36,7 @@ export interface Presentation{
 }
 
 export interface Article {
+    id:string;
     title:string,
     text:string,
     photoUrl:string,
@@ -41,6 +45,7 @@ export interface Article {
 }
 
 export interface Festival{
+    id:string;
     title:string,
     text:string,
     photoUrls:string[],

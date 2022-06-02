@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbDialogConfig, NbDialogService } from '@nebular/theme';
-import { DatabaseFolder, Poster } from 'src/app/models/database-models';
+import { DocumentTypes, Poster } from 'src/app/models/database-models';
+import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { ModalService } from 'src/app/services/modal.service';
@@ -15,7 +16,8 @@ import { FileViewModalComponent } from '../file-view-modal/file-view-modal.compo
 })
 export class PosterUploadComponent implements OnInit {
 
-  poster: Poster = new Poster();
+  poster!: Poster;
+  // poster!: Poster | undefined = new Poster();
 
   posterForm = new FormGroup({
     title: new FormControl(``,[
@@ -39,16 +41,39 @@ export class PosterUploadComponent implements OnInit {
               private fileService:FileUploadService,
               private dialogService: NbDialogService,
               private modalService: ModalService,
+              private dataStorage:DataStorageService,
               private router: Router) { }
 
   ngOnInit(): void {
+
     this.getPosterUrls();
 
     this.modalService.selectedImageUrl.subscribe((selectedUrl)=>{
       this.posterForm.get(`photoUrl`)?.setValue(selectedUrl);
       this.selectedUrl = selectedUrl;
-    })
-  
+    });
+
+    this.initializePoster();
+  }
+
+  initializePoster(){
+    if(this.dataStorage.document?.id){
+      this.firebase.getPoster(this.dataStorage.document.id, DocumentTypes.poster).then(response=>{
+        this.poster = response as Poster;
+        this.fillForm(this.poster);
+      })
+    }
+    else{
+      this.poster = new Poster();
+    }
+  }
+
+  fillForm(poster:any){
+    this.posterForm.get(`title`)?.setValue(poster.title);
+    this.posterForm.get(`photoUrl`)?.setValue(poster.photoUrl);
+    this.posterForm.get(`text`)?.setValue(poster.text);
+    this.posterForm.get(`dateReleased`)?.setValue(new Date(poster.dateReleased.seconds * 1000));
+    this.selectedUrl = poster.photoUrl;
   }
 
   createPoster(){
@@ -72,10 +97,16 @@ export class PosterUploadComponent implements OnInit {
   }
 
   uploadPoster(){
-    this.firebase.addDocument(DatabaseFolder.posters, this.poster)
+    if(this.poster.id){
+      this.firebase.updatePoster(DocumentTypes.poster, this.poster).catch(error=>{
+        console.error(`error updating poster`, error);
+      })
+    }else{
+      this.firebase.addDocument(DocumentTypes.poster, this.poster)
       .catch(error=>{
         console.error(error);
       });
+    }    
   }
 
   onFormSubmit(){

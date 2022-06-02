@@ -1,9 +1,20 @@
 [role="table"]{
     width: 100%;
+    background-color: #e1cee4;
+}
+
+[role="row"]{
+    
+}
+
+[role="row"]:hover{
+    cursor: pointer;
+    background-color: #aa81b1;
 }
 
 img{
-    width: 3rem;
+    height: 3rem;
+    width: 2rem;
 }
 
 [role="row"],

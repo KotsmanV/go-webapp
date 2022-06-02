@@ -10,10 +10,10 @@ import { UploadIndexComponent } from './components/upload-index/upload-index.com
 const routes: Routes = [
     { path:``, component: UploadBaseComponent, children:[
       { path: `index`, component:UploadIndexComponent },
-      { path:`posters`, component:PosterUploadComponent},
-      { path:`festivals`, component:FestivalUploadComponent},
-      { path:`texts`, component:TextUploadComponent},
-      { path:`magazines`, component:MagazineUploadComponent}
+      { path:`poster`, component:PosterUploadComponent},
+      { path:`festival`, component:FestivalUploadComponent},
+      { path:`text`, component:TextUploadComponent},
+      { path:`magazine`, component:MagazineUploadComponent}
   ]}
 ];
 

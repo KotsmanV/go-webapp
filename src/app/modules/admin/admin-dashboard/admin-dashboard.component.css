@@ -1,19 +1,18 @@
-    .logout-btn{
-    justify-self: flex-end !important;
-}
+    .logout-btn {
+      justify-self: flex-end !important;
+    }
 
 
-.admin-header{
-    display: grid;
-    grid-auto-flow: column;
-    width: 100%;
-}
+    nb-layout-header nav {
+        justify-content: space-between !important;
+      width: 100%;
+    }
 
-.admin-header:first-child{
-    justify-items: left;
-}
+    .admin-header:first-child {
+      justify-items: left;
+    }
 
-.admin-header:last-child{
-    justify-self: end;
-    place-items: center;
-}
+    .admin-header:last-child {
+      justify-self: end;
+      place-items: center;
+    }

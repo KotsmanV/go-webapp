@@ -4,7 +4,7 @@
     </nb-card-header>
     <nb-card-body>
       <nb-tabset (changeTab)="getDocuments($event)">
-        <nb-tab [tabTitle]="documentTypes.posters">
+        <nb-tab [tabTitle]="documentTypes.poster">
           <table mat-table [dataSource]="posterDatasource" *ngIf="posters">
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef>Title</th>
@@ -23,11 +23,11 @@
               <td mat-cell *matCellDef="let poster"><img [src]="poster.photoUrl" target="blank"></td>
             </ng-container>
     
-            <tr mat-header-row *matHeaderRowDef="posterColumns" class="table-row"></tr>
-            <tr mat-row *matRowDef="let myRowData; columns: posterColumns" class="table-row"></tr>
+            <tr mat-header-row *matHeaderRowDef="posterColumns" class="table-row"></tr>          
+            <tr mat-row *matRowDef="let row; columns: posterColumns" class="table-row" (click)="showDetails(documentTypes.poster, row)" ></tr>
           </table>
         </nb-tab>
-        <nb-tab [tabTitle]="documentTypes.articles">
+        <nb-tab [tabTitle]="documentTypes.article">
           <table mat-table [dataSource]="articleDatasource"  *ngIf="articles">
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef>Title</th>
@@ -51,7 +51,7 @@
           </table>
 
         </nb-tab>
-        <nb-tab [tabTitle]="documentTypes.festivals">
+        <nb-tab [tabTitle]="documentTypes.festival">
           <table mat-table [dataSource]="festivalDatasource"  *ngIf="festivals">
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef>Title</th>
@@ -86,7 +86,7 @@
             <tr mat-row *matRowDef="let myRowData; columns: festivalColumns" class="table-row"></tr>
           </table>
         </nb-tab>
-        <nb-tab [tabTitle]="documentTypes.presentations">
+        <nb-tab [tabTitle]="documentTypes.presentation">
           <table mat-table [dataSource]="presentationDatasource"  *ngIf="presentations">
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef>Title</th>
@@ -110,7 +110,7 @@
             </ng-container>
     
             <tr mat-header-row *matHeaderRowDef="presentationColumns" class="table-row"></tr>
-            <tr mat-row *matRowDef="let myRowData; columns: presentationColumns" class="table-row"></tr>
+            <tr mat-row *matRowDef="let row; columns: presentationColumns" class="table-row" (click)="showDetails(documentTypes.poster, row)"></tr>
           </table>
         </nb-tab>
         <!-- <nb-tab [tabTitle]="documentTypes.magazines"></nb-tab> -->
