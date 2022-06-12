@@ -12,11 +12,11 @@
             </ng-container>
             <ng-container matColumnDef="uploadedDt">
               <th mat-header-cell *matHeaderCellDef>Uploaded</th>
-              <td mat-cell *matCellDef="let poster">{{showDate(poster.dateUploaded) | date }}</td>
+              <td mat-cell *matCellDef="let poster">{{poster.dateUploaded ? (showDate(poster.dateUploaded) | date) : '' }}</td>
             </ng-container>
             <ng-container matColumnDef="releasedDt">
               <th mat-header-cell *matHeaderCellDef>Released</th>
-              <td mat-cell *matCellDef="let poster">{{showDate(poster.dateReleased) | date }}</td>
+              <td mat-cell *matCellDef="let poster">{{poster.dateReleased ? (showDate(poster.dateReleased) | date) : ''}}</td>
             </ng-container>
             <ng-container matColumnDef="image">
               <th mat-header-cell *matHeaderCellDef>Image</th>
@@ -35,11 +35,11 @@
             </ng-container>
             <ng-container matColumnDef="uploadedDt">
               <th mat-header-cell *matHeaderCellDef>Uploaded</th>
-              <td mat-cell *matCellDef="let article">{{showDate(article.dateUploaded) | date }}</td>
+              <td mat-cell *matCellDef="let article">{{article.dateUploaded ? (showDate(article.dateUploaded) | date) : ''}}</td>
             </ng-container>
             <ng-container matColumnDef="releasedDt">
               <th mat-header-cell *matHeaderCellDef>Released</th>
-              <td mat-cell *matCellDef="let article">{{showDate(article.dateReleased) | date }}</td>
+              <td mat-cell *matCellDef="let article">{{article.dateReleased ? (showDate(article.dateReleased) | date) : ''}}</td>
             </ng-container>
             <ng-container matColumnDef="image">
               <th mat-header-cell *matHeaderCellDef>Image</th>
@@ -47,7 +47,7 @@
             </ng-container>
     
             <tr mat-header-row *matHeaderRowDef="articleColumns" class="table-row"></tr>
-            <tr mat-row *matRowDef="let myRowData; columns: articleColumns" class="table-row"></tr>
+            <tr mat-row *matRowDef="let row; columns: articleColumns" class="table-row" (click)="showDetails(documentTypes.article, row)"></tr>
           </table>
 
         </nb-tab>
@@ -83,7 +83,7 @@
             </ng-container>
     
             <tr mat-header-row *matHeaderRowDef="festivalColumns" class="table-row"></tr>
-            <tr mat-row *matRowDef="let myRowData; columns: festivalColumns" class="table-row"></tr>
+            <tr mat-row *matRowDef="let row; columns: festivalColumns" class="table-row"></tr>
           </table>
         </nb-tab>
         <nb-tab [tabTitle]="documentTypes.presentation">

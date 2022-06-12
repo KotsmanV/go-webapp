@@ -5,12 +5,27 @@ import { FirebaseStorage, getDownloadURL, getStorage, listAll, ref, StorageRefer
 import { from } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { rootCertificates } from 'tls';
+import { FileBuckets } from '../models/database-models';
 import { ModalService } from './modal.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
+  allowedFileTypes = {
+    image:['.jpg','.jpeg'],
+    pdf:['.pdf']
+  }
+
+  fileMaxSize = 2097152 //bytes;
+  firebaseFileBuckets = {
+    articles: `articles/`,
+    posters:`posters/`,
+    pdfs:`pdfs/`,
+    magazines:``,
+    publications:``
+  }
+
 
   storage!: FirebaseStorage;
   appInstance!: FirebaseApp;
@@ -23,9 +38,25 @@ export class FileUploadService {
     this.storage = getStorage(getApp());
   }
 
-  uploadFile(file: any, filename: string) {
+  formatFileBucketName(bucket:FileBuckets, documentName:string, filename:string){
+    return `${bucket}${documentName}-${filename}`.replace(/\s/g, '_').toLowerCase();
+  }
+
+  async uploadFile(file: any, filename: string) {
     let fileRef = ref(this.storage, filename);
-    return uploadBytes(fileRef, file);
+
+    try{
+      return await getDownloadURL(fileRef);
+    }catch{
+      return uploadBytes(fileRef, file).then(resp=>{
+        return getDownloadURL(resp.ref)
+      }).then(url=>{
+        return url;
+      });
+    }
+    
+
+    
   }
 
   getAllFiles(section: string) {

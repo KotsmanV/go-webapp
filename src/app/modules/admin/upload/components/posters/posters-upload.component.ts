@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbDialogConfig, NbDialogService } from '@nebular/theme';
+import { NbDialogService } from '@nebular/theme';
 import { DocumentTypes, Poster } from 'src/app/models/database-models';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -80,7 +80,7 @@ export class PosterUploadComponent implements OnInit {
     this.poster.title = this.posterForm.get(`title`)?.value;
     this.poster.photoUrl = this.posterForm.get(`photoUrl`)?.value;
     this.poster.text = this.posterForm.get(`text`)?.value;
-    this.poster.dateUploaded = new Date(2022,1,1);
+    this.poster.dateUploaded = new Date();
     this.poster.dateReleased = this.posterForm.get(`dateReleased`)?.value;
   }
 
@@ -136,10 +136,10 @@ export class PosterUploadComponent implements OnInit {
       context: {
         urls: this.posterUrls
       }
-    })
-    
+    })    
   }
     
+    // openFileDisplayModal = this.htmlHelpers.openFileDisplayModal;
     
   //   then(urls=>{
   //     console.table(urls);      

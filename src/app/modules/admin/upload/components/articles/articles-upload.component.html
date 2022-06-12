@@ -1,0 +1,49 @@
+<nb-card>
+  <nb-card-header>
+    <h5>Upload - Articles</h5>
+  </nb-card-header>
+  <nb-card-body>
+
+    <form class="go-form article" [formGroup]="articleForm" (ngSubmit)="onFormSubmit()">
+      <div class="form-top-section">
+        <div class="top-section-left-side">
+          <div class="go-form-row">
+            <label for="document-title">Τίτλος</label>
+            <input nbInput id="document-title" formControlName="title" placeholder="Βάλε τίτλο" type="text" />
+            <span *ngIf="articleForm.get('title')?.errors && articleForm.get('title')?.dirty" class="validation-error-message">
+              Χρειάζονται τουλάχιστον 5 γράμματα.
+            </span>
+          </div>
+          <div class="go-form-row image-selection">
+            <label for="document-image">Εικόνα</label>
+            <input nbInput id="document-image" class="image-select-input" formControlName="image" type="file"
+              [accept]="allowedFileTypes" (change)="getFile($event.target); showFile($event.target)"/>
+            <!-- <input nbInput id="poster-poster" formControlName="photoUrl" type="text" hidden/> -->
+            <!-- <button nbButton class="select-image-btn" (click)="openFileDisplayModal($event)">ΔΙΑΛΕΞΕ ΑΦΙΣΑ</button> -->
+            <span *ngIf="articleForm.get('image')?.errors&& articleForm.get('image')?.dirty" class="validation-error-message">
+              Η εικόνα είναι απαραίτητη για το άρθρο.
+            </span>
+
+          </div>
+          <div class="go-form-row date-selection release-date">
+            <label for="document-release-date">Ημερομηνία έκδοσης</label>
+            <input id="document-release-date" nbInput placeholder="Βάλε ημερομηνία έκδοσης"
+              [nbDatepicker]="dateReleased" formControlName="dateReleased">
+            <nb-datepicker #dateReleased></nb-datepicker>
+          </div>
+        </div>
+        <div class="top-section-right-side">
+          <div class="image-container" *ngIf="selectedUrl">
+            <img [src]="selectedUrl">
+          </div>
+        </div>
+      </div>
+      <div class="go-form-row text">
+        <label for="document-text">Περιεχόμενο</label>
+        <textarea nbInput id="document-text" formControlName="text" placeholder="Βάλε το κείμενο του άρθρου"
+          fieldSize="large" rows="15" fullWidth></textarea>
+      </div>
+      <button nbButton class="submit-button" placeholder="Ανέβασε το άρθρο" type="submit">Αποθηκευση</button>
+    </form>
+  </nb-card-body>
+</nb-card>

@@ -6,6 +6,14 @@ export enum DocumentTypes{
     magazine = `magazines`
 }
 
+export enum FileBuckets{
+    poster = `posters/`,
+    article = `articles/`,
+    festival = `festivals/`,
+    presentation = `presentations/`,
+    magazine = `magazines/`,
+}
+
 export interface Poster{
     id:string;
     title:string,
@@ -42,6 +50,15 @@ export interface Article {
     photoUrl:string,
     dateReleased:Date | null,
     dateUploaded:Date | null
+}
+
+export class Article{
+    id = ``;
+    title = ``;
+    text = ``;
+    photoUrl = ``;
+    dateUploaded: Date | null = null;
+    dateReleased:Date | null = null;
 }
 
 export interface Festival{

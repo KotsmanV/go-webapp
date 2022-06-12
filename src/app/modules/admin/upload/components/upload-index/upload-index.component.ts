@@ -22,10 +22,14 @@ export class UploadIndexComponent implements OnInit {
   festivalColumns = [`title`, `uploadedDt`, `releasedDt`, `poster`, `covers`, `photos`];
   posterUrls!: string[];
 
-  posters: Poster[] | undefined = this.dataStorage.posters;
-  articles: Article[] | undefined = this.dataStorage.articles;
-  festivals: Festival[] | undefined = this.dataStorage.festivals;
-  presentations: Presentation[] | undefined = this.dataStorage.presentations;
+  posters!: Poster[] | undefined;
+  articles!: Article[] | undefined;
+  festivals!: Festival[] | undefined;
+  presentations!: Presentation[] | undefined;
+  // posters: Poster[] | undefined = this.dataStorage.posters;
+  // articles: Article[] | undefined = this.dataStorage.articles;
+  // festivals: Festival[] | undefined = this.dataStorage.festivals;
+  // presentations: Presentation[] | undefined = this.dataStorage.presentations;
 
   documentTypes = DocumentTypes;
 
@@ -70,7 +74,7 @@ export class UploadIndexComponent implements OnInit {
     if (!this.articles) {
       this.firebase.getArticles().then(response => {
         this.articles = this.dataStorage.articles = response as Article[];
-        this.articleDatasource = new MatTableDataSource<Article>(this.articles)
+        this.articleDatasource = new MatTableDataSource<Article>(this.articles);
       })
     } else {
       this.articleDatasource = new MatTableDataSource<Article>(this.articles);
@@ -99,15 +103,14 @@ export class UploadIndexComponent implements OnInit {
     }
   }
 
-
-
   showDate(timestamp: any) {
-    return new Date(timestamp.seconds * 1000)
+    return new Date(timestamp?.seconds * 1000);
   }
 
   showDetails(documentType: DocumentTypes, document: Poster | Article | Festival | Presentation) {
     this.dataStorage.document = document;
     this.dataStorage.documentId = document.id;
+    console.log(document);
     let routerLink: string;
     switch (documentType) {
       case DocumentTypes.poster.valueOf(): routerLink = `admin/upload/poster`; break;

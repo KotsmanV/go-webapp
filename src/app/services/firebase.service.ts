@@ -40,7 +40,11 @@ export class FirebaseService {
     let presentations: Presentation[] = [];
     return getDocs(collection(this.db, `presentations`))
       .then(response => {
-        response.docs.forEach(d => presentations.push(d.data() as Presentation))
+        response.docs.forEach(d => {
+          let presentation:Presentation= d.data() as Presentation;
+          presentation.id = d.id;
+          presentations.push(presentation);
+        })
         return presentations;
       })
       .catch(error => {
@@ -52,7 +56,11 @@ export class FirebaseService {
     let festivals: Festival[] = [];
     return getDocs(collection(this.db, `festivals`))
       .then(response => {
-        response.docs.forEach(d => festivals.push(d.data() as Festival))
+        response.docs.forEach(d => {
+          let festival:Festival= d.data() as Festival;
+          festival.id = d.id;
+          festivals.push(festival);
+        })
         return festivals;
       })
       .catch(error => {
@@ -64,7 +72,11 @@ export class FirebaseService {
     let articles: Article[] = [];
     return getDocs(collection(this.db, `articles`))
       .then(response => {
-        response.docs.forEach(d => articles.push(d.data() as Article))
+        response.docs.forEach(d => {
+          let article:Article= d.data() as Article;
+          article.id = d.id;
+          articles.push(article);
+        });
         return articles;
       })
       .catch(error => {
@@ -82,26 +94,71 @@ export class FirebaseService {
       console.error(`error retrieving poster`, error);
     })
   }
+  getArticle(documentId: string, documentType: DocumentTypes) {
+    let docRef = doc(this.db, documentType.valueOf(), documentId);
+    return getDoc(docRef).then((response) => {
+      let article: Article = response.data() as Article;
+      article.id = response.id;
+      return article;
+    }).catch(error => {
+      console.error(`error retrieving poster`, error);
+    })
+  }
+
+  getDocument(documentId: string, documentType: DocumentTypes) {
+    let docRef = doc(this.db, documentType.valueOf(), documentId);
+    return getDoc(docRef).then((response) => {
+      let document: Article | Poster | Festival | Presentation | undefined;
+      switch (documentType) {
+        case DocumentTypes.poster: document = response.data() as Poster; break;
+        case DocumentTypes.article: document = response.data() as Article; break;
+        case DocumentTypes.festival: document = response.data() as Festival; break;
+        case DocumentTypes.presentation: document = response.data() as Presentation; break;
+        // case DocumentTypes.magazine: document = response.data() as Magazine; break;
+        default: document = undefined; break;
+      }
+      document!.id = response.id;
+      return document;
+    }).catch(error => {
+      console.error(`error retrieving poster`, error);
+      return undefined;
+    })
+  }
 
   async addDocument(documentType: DocumentTypes, document: Poster | Article | Festival | Presentation) {
     try {
       await addDoc(collection(this.db, documentType.valueOf()), Object.assign({}, document));
     } catch (e) {
-      console.error(`Poster was not added.`, e)
+      console.error(`Document was not added.`, e)
     }
   }
 
   async updatePoster(documentType: DocumentTypes, document: Poster) {
     let docRef = doc(this.db, documentType.valueOf(), document.id);
-    try{
-      await updateDoc(docRef,{
+    try {
+      await updateDoc(docRef, {
         title: document.title,
-        text:document.text,
+        text: document.text,
         dateReleased: document.dateReleased,
         dateUpdated: new Date(),
         photoUrl: document.photoUrl
       });
-    }catch(e){
+    } catch (e) {
+      console.error(`error updating poster`, e);
+    }
+  }
+
+  async updateArticle(documentType: DocumentTypes, document: Article) {
+    let docRef = doc(this.db, documentType.valueOf(), document.id);
+    try {
+      await updateDoc(docRef, {
+        title: document.title,
+        text: document.text,
+        dateReleased: document.dateReleased,
+        dateUpdated: new Date(),
+        photoUrl: document.photoUrl
+      });
+    } catch (e) {
       console.error(`error updating poster`, e);
     }
   }

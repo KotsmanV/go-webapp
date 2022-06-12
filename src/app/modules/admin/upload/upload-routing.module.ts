@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ArticleUploadComponent } from './components/articles/articles-upload.component';
 import { FestivalUploadComponent } from './components/festivals/festivals-upload.component';
 import { MagazineUploadComponent } from './components/magazines/magazines-upload.component';
 import { PosterUploadComponent } from './components/posters/posters-upload.component';
@@ -13,7 +14,8 @@ const routes: Routes = [
       { path:`poster`, component:PosterUploadComponent},
       { path:`festival`, component:FestivalUploadComponent},
       { path:`text`, component:TextUploadComponent},
-      { path:`magazine`, component:MagazineUploadComponent}
+      { path:`magazine`, component:MagazineUploadComponent},
+      { path:`article`, component:ArticleUploadComponent}
   ]}
 ];
 
