@@ -5,8 +5,8 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  // { path:``, component:AdminDashboardComponent, canActivate:[AuthGuard],  children:[
-  { path:``, component:AdminDashboardComponent,  children:[
+  { path:``, component:AdminDashboardComponent, canActivate:[AuthGuard],  children:[
+  // { path:``, component:AdminDashboardComponent,  children:[
     { path:`upload`, loadChildren: ()=> import(`./upload/upload.module`).then(m=>m.UploadModule)}
   ]},
   { path:`login`, component:LoginComponent},

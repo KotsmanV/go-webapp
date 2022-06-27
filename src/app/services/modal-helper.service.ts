@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
-import { statusMessage } from '../models/enums';
+import { StatusMessage } from '../models/enums';
 import { FileViewModalComponent } from '../modules/admin/upload/components/file-view-modal/file-view-modal.component';
 import { InfoMessageModalComponent } from '../modules/admin/upload/components/modals/info-message-modal/info-message-modal.component';
 
@@ -41,7 +41,7 @@ export class ModalHelper {
   //   })
   // }
 
-  openMessageModal(dialogServiceRef: NbDialogService, messageInput: string | statusMessage){
+  openMessageModal(dialogServiceRef: NbDialogService, messageInput: string | StatusMessage){
     dialogServiceRef.open(InfoMessageModalComponent,{
       context:{
         message: messageInput

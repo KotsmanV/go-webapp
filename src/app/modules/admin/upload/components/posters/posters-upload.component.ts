@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
-import { DocumentTypes, Poster } from 'src/app/models/database-models';
+import { DocumentTypes, FileBuckets, Poster } from 'src/app/models/database-models';
+import { StatusMessage } from 'src/app/models/enums';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { ModalHelper } from 'src/app/services/modal-helper.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { FileViewModalComponent } from '../file-view-modal/file-view-modal.component';
 
@@ -14,7 +16,7 @@ import { FileViewModalComponent } from '../file-view-modal/file-view-modal.compo
   templateUrl: './posters-upload.component.html',
   styleUrls: ['./posters-upload.component.css']
 })
-export class PosterUploadComponent implements OnInit {
+export class PosterUploadComponent implements OnInit, OnDestroy {
 
   poster!: Poster;
   // poster!: Poster | undefined = new Poster();
@@ -31,10 +33,13 @@ export class PosterUploadComponent implements OnInit {
     
   ])
 
+  allowedFileTypes = this.fileUpload.allowedFileTypes.image;
+  selectedUrl!:string;
+  file:any;
+
   fileArray:File[] = [];
 
   posterUrls:string[] = [];
-  selectedUrl!:string;
 
 
   constructor(private firebase:FirebaseService,
@@ -42,6 +47,8 @@ export class PosterUploadComponent implements OnInit {
               private dialogService: NbDialogService,
               private modalService: ModalService,
               private dataStorage:DataStorageService,
+              private fileUpload: FileUploadService,
+              private modalHelper: ModalHelper,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -54,6 +61,10 @@ export class PosterUploadComponent implements OnInit {
     });
 
     this.initializePoster();
+  }
+
+  ngOnDestroy(): void {
+    this.dataStorage.document = undefined;
   }
 
   initializePoster(){
@@ -70,7 +81,8 @@ export class PosterUploadComponent implements OnInit {
 
   fillForm(poster:any){
     this.posterForm.get(`title`)?.setValue(poster.title);
-    this.posterForm.get(`photoUrl`)?.setValue(poster.photoUrl);
+    // this.posterForm.get(`photoUrl`)?.setValue(poster.photoUrl);
+    this.selectedUrl = poster.photoUrl;
     this.posterForm.get(`text`)?.setValue(poster.text);
     this.posterForm.get(`dateReleased`)?.setValue(new Date(poster.dateReleased.seconds * 1000));
     this.selectedUrl = poster.photoUrl;
@@ -82,6 +94,36 @@ export class PosterUploadComponent implements OnInit {
     this.poster.text = this.posterForm.get(`text`)?.value;
     this.poster.dateUploaded = new Date();
     this.poster.dateReleased = this.posterForm.get(`dateReleased`)?.value;
+  }
+
+  getFile(eventTarget: any) {
+    if (eventTarget.files && eventTarget.files.length > 0) {
+      if (eventTarget.files[0].type != "image/jpeg") {
+        console.log(`invalid file type`);
+        return;
+      }
+      if (eventTarget.files[0].size > this.fileUpload.fileMaxSize) {
+        console.log(`${eventTarget.files[0].size} > ${this.fileUpload.fileMaxSize}`);
+        return;
+      }
+
+      this.file = eventTarget.files[0];
+    } else {
+      this.file = undefined;
+    }
+    console.log(this.file);
+  }
+
+  showFile(eventTarget: any) {
+    if (eventTarget.files && eventTarget.files[0]) {
+      var reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.selectedUrl = event.target.result;
+      }
+      reader.readAsDataURL(eventTarget.files[0]);
+    } else {
+      this.selectedUrl = this.poster.photoUrl;
+    }
   }
 
   pushFileToArray(eventTarget:any){
@@ -110,12 +152,24 @@ export class PosterUploadComponent implements OnInit {
   }
 
   onFormSubmit(){
-    this.createPoster();
     if(this.posterForm.valid){
-      this.uploadPoster();
-      this.router.navigate([`admin/upload/index`])
+      this.createPoster();
+
+      let filepath = this.fileUpload.formatFileBucketName(FileBuckets.poster, this.poster.title, this.file.name);
+      this.fileUpload.uploadFile(this.file, filepath)
+      .then(imageUrl =>{
+        this.poster.photoUrl = imageUrl;
+      }).then(()=>{
+        this.uploadPoster();
+      }).then(()=>{
+        this.modalHelper.openMessageModal(this.dialogService, StatusMessage.success);
+        this.router.navigate([`admin/upload/index`]);
+      }).catch(error=>{
+        this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
+        console.log(error);
+      });
     }else{
-      console.error(`form errors!`);
+      this.modalHelper.openMessageModal(this.dialogService,StatusMessage.validationError);
     };
   }
 

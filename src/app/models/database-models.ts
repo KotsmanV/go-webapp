@@ -43,6 +43,24 @@ export interface Presentation{
     dateUploaded:Date | null
 }
 
+export class Presentation implements Presentation{
+    constructor(title:string, text:string, dateReleased:Date | null){
+        this.title = title;
+        this.text = text;
+        this.dateUploaded = new Date();
+        this.dateReleased = dateReleased ?? new Date();
+    }
+
+    id = ``;
+    title = ``;
+    text = ``;
+    posterUrl = ``;
+    coverUrl = ``;
+    pdfUrl = ``;
+    dateReleased:Date | null = null;
+    dateUploaded:Date | null = null;
+}
+
 export interface Article {
     id:string;
     title:string,

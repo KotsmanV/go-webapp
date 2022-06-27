@@ -14,7 +14,7 @@ export class DataStorageService {
   // magazines!:Magazine[] | undefined;
   presentations!:Presentation[] | undefined;
 
-  document!:Poster | Article | Festival | Presentation;
+  document!:Poster | Article | Festival | Presentation | undefined;
   documentId!:string;
 
   deleteData(){

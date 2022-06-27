@@ -22,9 +22,14 @@
 }
 
 .go-form-row{
-    display: inherit;
+    display: grid;
+    grid-template-rows: 0.5fr 1fr 0.5fr;
 }
 
+.go-form-row.text{
+    grid-template-rows: unset;
+    grid-auto-flow: row;
+}
 .image-selection{
     gap:0.5rem;
 }
@@ -39,13 +44,16 @@ img{
     height: calc(8rem * 1.5);
 }
 
-
-
 label {
     font-family: 'Open Sans, sans-serif';
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.5rem;
+}
+
+.validation-error-message{
+    color: red;
+    font-size: smaller;
 }
 
 .submit-button{

@@ -1,5 +1,7 @@
-export enum statusMessage{
+export enum StatusMessage{
     success = "Η ενέργεια εκτελέστηκε επιτυχημένα",
     error = "H ενέργεια απέτυχε. Αν συνεχίσει, πάρε τηλ.",
-    validationError = "Υπάρχουν σφάλματα ή ελλείψεις στη φόρμα."
+    validationError = "Υπάρχουν σφάλματα ή ελλείψεις στη φόρμα.",
+    invalidFileError = "Ο συγκεκριμένος τύπος αρχείου δεν υποστηρίζεται.",
+    fileUploadError = "Υπήρξε σφάλμα στο ανέβασμα του αρχείου "
 }

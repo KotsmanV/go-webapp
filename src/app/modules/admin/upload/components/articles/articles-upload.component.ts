@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators }
 import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { Article, DocumentTypes, FileBuckets } from 'src/app/models/database-models';
-import { statusMessage } from 'src/app/models/enums';
+import { StatusMessage } from 'src/app/models/enums';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -108,11 +108,11 @@ export class ArticleUploadComponent implements OnInit {
         })
     } else {
       this.firebase.addDocument(DocumentTypes.article, this.article).then(() => {
-        this.modalHelper.openMessageModal(this.dialogService,statusMessage.success);
+        this.modalHelper.openMessageModal(this.dialogService,StatusMessage.success);
       })
         .catch(error => {
           console.error(error);
-          this.modalHelper.openMessageModal(this.dialogService,statusMessage.error);
+          this.modalHelper.openMessageModal(this.dialogService,StatusMessage.error);
         });
     }
 
@@ -133,14 +133,14 @@ export class ArticleUploadComponent implements OnInit {
           this.article.photoUrl = imageUrl;
         }).then(() => {
           this.uploadArticle();
-          this.modalHelper.openMessageModal(this.dialogService, statusMessage.success)
+          this.modalHelper.openMessageModal(this.dialogService,StatusMessage.success)
           // this.router.navigate([`admin/upload/index`]);
         }).catch(error => {
           console.error(error)
         });
     }
     else {
-      this.modalHelper.openMessageModal(this.dialogService,statusMessage.validationError);
+      this.modalHelper.openMessageModal(this.dialogService, StatusMessage.validationError);
     }
   }
 
