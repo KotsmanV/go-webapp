@@ -10,12 +10,14 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { ModalHelper } from 'src/app/services/modal-helper.service';
 
+type UploadError =  { code: 1 | 2 | 3, message:string };
+
 @Component({
   selector: 'app-presentations',
-  templateUrl: './presentations.component.html',
-  styleUrls: ['./presentations.component.css']
+  templateUrl: './presentations-upload.component.html',
+  styleUrls: ['./presentations-upload.component.css']
 })
-export class PresentationsComponent implements OnInit {
+export class PresentationUploadComponent implements OnInit {
 
   constructor(private fileUpload: FileUploadService,
     private firebase: FirebaseService,
@@ -25,14 +27,8 @@ export class PresentationsComponent implements OnInit {
     private router: Router) { }
 
   presentation!: Presentation;
-  allowedImageTypes = this.fileUpload.allowedFileTypes.image;
-  allowedDocumentTypes = this.fileUpload.allowedFileTypes.pdf;
-
-  filesToUpload = {
-    poster!: new File(),
-    cover!: {},
-    pdf!: {},
-  }
+  allowedImageTypes = this.fileUpload.allowedFileTypes.image.join();
+  allowedDocumentTypes = this.fileUpload.allowedFileTypes.pdf.join();
 
   urls = {
     cover: ``,
@@ -93,25 +89,34 @@ export class PresentationsComponent implements OnInit {
 
   getFile(eventTarget: any, type: string) {
     if (eventTarget.files && eventTarget.files.length > 0) {
-      if ((type != `pdf` && eventTarget.files[0].type != `image/jpg`) || (type == `pdf` && eventTarget.files[0].type != `application/pdf`)) {
+      console.log(eventTarget.files[0].type);
+      console.log(eventTarget.files[0]);
+      if (type != `pdf` && (eventTarget.files[0].type != `image/jpeg` && eventTarget.files[0].type != `image/jpg`)) {
+        console.log(`invalid file type`);
+        this.modalHelper.openMessageModal(this.dialogService, StatusMessage.invalidFileError);
+        return;
+      }else if(type == `pdf` && eventTarget.files[0].type != `application/pdf`){
         console.log(`invalid file type`);
         this.modalHelper.openMessageModal(this.dialogService, StatusMessage.invalidFileError);
         return;
       }
+
+
+
       if (type != `pdf` && eventTarget.files[0].size > this.fileUpload.fileMaxSize) {
         console.log(`${eventTarget.files[0].size} > ${this.fileUpload.fileMaxSize}`);
         return;
       }
       if (type == `pdf`) {
-        this.filesToUpload.pdf = eventTarget.files[0];
+        this.pdfFile = eventTarget.files[0];
         return;
       }
       if (type == `poster`) {
-        this.filesToUpload.poster = eventTarget.files[0];
+        this.posterFile = eventTarget.files[0];
         return;
       }
       if (type == `cover`) {
-        this.filesToUpload.cover = eventTarget.files[0];
+        this.coverFile = eventTarget.files[0];
         return;
       }
     }
@@ -163,66 +168,87 @@ export class PresentationsComponent implements OnInit {
     );
   }
 
-  uploadFiles(){
-    let filepath = this.fileUpload.formatFileBucketName(FileBuckets.presentation, this.presentation.title, this.filesToUpload.cover?.name);
+  async uploadFiles(){
+    let uploadErrors:string[] = [];
 
-
-
-
-
-    let urls:string[] = [];
-    let files:any[] = [
-      this.posterFile,
-      this.coverFile,
-      this.pdfFile
-    ];
-
-    for (let i = 0; i < files.length; i++) {
-      let filepath = this.fileUpload.formatFileBucketName(FileBuckets.presentation, this.presentation.title, files[i].name);
-      return this.fileUpload.uploadFile(files[i], filepath).then(url=>{
-        urls.push(url);
-      }).catch(error=>{
-        console.error(error);
-        this.modalHelper.openMessageModal(this.dialogService,`${StatusMessage.fileUploadError} ${files[i].name}`);
-        return undefined;
-      });
-
+    if(!this.presentation.coverUrl){
+      let filepath = this.fileUpload.formatFileBucketName(FileBuckets.presentation, this.presentation.title, this.coverFile.name);
+      try{
+        this.presentation.coverUrl = await this.fileUpload.uploadFile(this.coverFile, filepath);
+      }catch(e){
+        console.error(e);
+        uploadErrors.push("Το εξώφυλλο δεν ανέβηκε.")
+      }
+      // await this.fileUpload.uploadFile(this.coverFile, filepath).then(url=>{
+      //   this.presentation.coverUrl = url;
+      // }).catch(error=>{
+      //   console.error(error);
+      //   uploadErrors.push("Το εξώφυλλο δεν ανέβηκε.")
+      // })
+    }
+    if(!this.presentation.posterUrl){
+      let filepath = this.fileUpload.formatFileBucketName(FileBuckets.presentation, this.presentation.title, this.posterFile.name);
+      try{
+        this.presentation.posterUrl = await this.fileUpload.uploadFile(this.coverFile, filepath);
+      }catch(e){
+        console.error(e);
+        uploadErrors.push("Η αφίσα δεν ανέβηκε.")
+      }
+      // this.fileUpload.uploadFile(this.posterFile, filepath).then(url=>{
+      //   this.presentation.posterUrl = url;
+      // }).catch(error=>{
+      //   console.error(error);
+      //   uploadErrors.push("Η αφίσα δεν ανέβηκε.")
+      // })
     }
 
+    if(!this.presentation.pdfUrl){
+      let filepath = this.fileUpload.formatFileBucketName(FileBuckets.presentation, this.presentation.title, this.pdfFile.name);
+      try{
+        this.presentation.pdfUrl= await this.fileUpload.uploadFile(this.coverFile, filepath);
+      }catch(e){
+        console.error(e);
+        uploadErrors.push("Η εισήγηση δεν ανέβηκε.")
+      }
+      // this.fileUpload.uploadFile(this.pdfFile, filepath).then(url=>{
+      //   this.presentation.coverUrl = url;
+      // }).catch(error=>{
+      //   console.error(error);
+      //   uploadErrors.push("Η εισήγηση δεν ανέβηκε.")
+      // })
+    }
+    return uploadErrors;
+  }
 
-    files.forEach(file=>{
-      let filepath = this.fileUpload.formatFileBucketName(FileBuckets.presentation, this.presentation.title, file.name);
-      this.fileUpload.uploadFile(file, filepath).then(url=>{
-        urls.push(url);
-      }).catch(error=>{
+  uploadPresentation(){
+    if(this.presentation.id){
+      this.firebase.updateDocument(DocumentTypes.poster, this.presentation).catch(error=>{
+        console.error(`error updating poster`, error);
+        this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
+      })
+    }else{
+      this.firebase.addDocument(DocumentTypes.presentation, this.presentation)
+      .catch(error=>{
         console.error(error);
-        this.modalHelper.openMessageModal(this.dialogService,`${StatusMessage.fileUploadError} ${file.name}`);
+        this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
       });
-    })
+    }    
   }
 
-  uploadFile(file:any){
-    let filepath = this.fileUpload.formatFileBucketName(FileBuckets.presentation, this.presentation.title, file.name);
-    return this.fileUpload.uploadFile(file, filepath).then(url=>{
-            return url;
-          }).catch(error=>{
-            console.error(error);
-            this.modalHelper.openMessageModal(this.dialogService,`${StatusMessage.fileUploadError} ${file.name}`);
-            return undefined;
-          });
-  }
 
-  onFormSubmit() {
+  async onFormSubmit() {
     if (this.presentationForm.valid) {
       this.createPresentation();
-      
 
+      let uploadErrors:string[] = await this.uploadFiles();
+      if(uploadErrors.length > 0) {
+        this.modalHelper.openMessageModal(this.dialogService, uploadErrors);
+        return;
+      }
+      this.uploadPresentation();
 
-      
-
-
-
-
+    }else{
+      this.modalHelper.openMessageModal(this.dialogService, StatusMessage.validationError);
     }
   }
 }

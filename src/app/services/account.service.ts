@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseApp, getApp, initializeApp } from 'firebase/app';
-import { Auth, getAuth, signInWithEmailAndPassword, signOut, User } from 'firebase/auth'
+import { Auth, browserLocalPersistence, getAuth, setPersistence, signInWithCredential, signInWithCustomToken, signInWithEmailAndPassword, signOut, User } from 'firebase/auth'
+import jwtDecode from 'jwt-decode';
+import { ReplaySubject, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { FirebaseJwt } from '../models/helper-models';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +13,9 @@ import { environment } from 'src/environments/environment';
 export class AccountService {
   appInstance!:FirebaseApp;
   auth!:Auth;
-  user:User | undefined;
+  user!:User | null;
   token:string | undefined = undefined;
+  hasLoggedIn: Subject<boolean> = new Subject<boolean>();
 
   constructor(private router:Router) { 
     if(!this.appInstance){
@@ -19,18 +23,18 @@ export class AccountService {
       this.appInstance = getApp();
     }
     this.auth = getAuth(this.appInstance);
-    this.getTokenFromStorage();
+    this.auth.onAuthStateChanged(user=>{
+      this.user = user;
+    });
+    this.user ? this.hasLoggedIn.next(true) : this.hasLoggedIn.next(false);
   }
 
-  signIn(username:string, password:string){
+  async signIn(username:string, password:string){
     signInWithEmailAndPassword(this.auth, username, password).then(credential =>{
       this.user = credential.user;
+      this.hasLoggedIn.next(true);
       this.router.navigate([`admin`]);
-    })
-    .then(()=>this.user?.getIdToken()).then(res=>{
-      this.token = res;
-      localStorage.setItem(`token`,JSON.stringify(this.token));
-    })
+    }).then(()=>this.auth.setPersistence(browserLocalPersistence))
     .catch(error=>{
       console.error(`User sign in error:`, error);
     })
@@ -39,13 +43,14 @@ export class AccountService {
   signOutUser(){
     signOut(this.auth).then(()=>{
       localStorage.clear();
-      this.user = undefined;
+      this.user = null;
       this.router.navigate([`admin/login`]);
+      this.hasLoggedIn.next(false);
     });
   }
 
   getTokenFromStorage(){
-    let st = localStorage.getItem(`token`);
+    let st = sessionStorage.getItem(`token`);
     if(st){
       this.token = JSON.parse(st);
     }else{

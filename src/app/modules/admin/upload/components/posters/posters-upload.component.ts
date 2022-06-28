@@ -140,34 +140,54 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
 
   uploadPoster(){
     if(this.poster.id){
-      this.firebase.updatePoster(DocumentTypes.poster, this.poster).catch(error=>{
-        console.error(`error updating poster`, error);
-      })
+      // this.firebase.updatePoster(DocumentTypes.poster, this.poster).catch(error=>{
+      //   console.error(`error updating poster`, error);
+      //   this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
+      // })
+      return this.firebase.updateDocument(DocumentTypes.poster, this.poster);
     }else{
-      this.firebase.addDocument(DocumentTypes.poster, this.poster)
-      .catch(error=>{
-        console.error(error);
-      });
+      return this.firebase.addDocument(DocumentTypes.poster, this.poster);
     }    
   }
 
-  onFormSubmit(){
+  async onFormSubmit(){
     if(this.posterForm.valid){
       this.createPoster();
 
-      let filepath = this.fileUpload.formatFileBucketName(FileBuckets.poster, this.poster.title, this.file.name);
-      this.fileUpload.uploadFile(this.file, filepath)
-      .then(imageUrl =>{
-        this.poster.photoUrl = imageUrl;
-      }).then(()=>{
-        this.uploadPoster();
-      }).then(()=>{
+      if(this.file || !this.selectedUrl){
+        let filepath = this.fileUpload.formatFileBucketName(FileBuckets.poster, this.poster.title, this.file.name);
+        try{
+          this.poster.photoUrl = await this.fileUpload.uploadFile(this.file, filepath);
+        }catch(e){
+          console.error(e);
+          this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
+          return;  
+        }
+      }else{
+        this.poster.photoUrl = this.selectedUrl;
+      }
+
+      this.uploadPoster().then(()=>{
         this.modalHelper.openMessageModal(this.dialogService, StatusMessage.success);
         this.router.navigate([`admin/upload/index`]);
       }).catch(error=>{
+        console.error(`error updating poster`, error);
         this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
-        console.log(error);
       });
+      
+      // let filepath = this.fileUpload.formatFileBucketName(FileBuckets.poster, this.poster.title, this.file.name);
+      // this.fileUpload.uploadFile(this.file, filepath)
+      // .then(imageUrl =>{
+      //   this.poster.photoUrl = imageUrl;
+      // }).then(()=>{
+      //   this.uploadPoster();
+      // }).then(()=>{
+      //   this.modalHelper.openMessageModal(this.dialogService, StatusMessage.success);
+      //   this.router.navigate([`admin/upload/index`]);
+      // }).catch(error=>{
+      //   this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
+      //   console.log(error);
+      // });
     }else{
       this.modalHelper.openMessageModal(this.dialogService,StatusMessage.validationError);
     };

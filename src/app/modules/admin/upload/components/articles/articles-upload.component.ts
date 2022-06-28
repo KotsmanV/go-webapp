@@ -102,42 +102,54 @@ export class ArticleUploadComponent implements OnInit {
 
   uploadArticle() {
     if (this.article.id) {
-      this.firebase.updateArticle(DocumentTypes.article, this.article)
-        .catch(error => {
-          console.error(`error updating article`, error);
-        })
+      return this.firebase.updateDocument(DocumentTypes.article, this.article);
     } else {
-      this.firebase.addDocument(DocumentTypes.article, this.article).then(() => {
+      return this.firebase.addDocument(DocumentTypes.article, this.article).then(() => {
         this.modalHelper.openMessageModal(this.dialogService,StatusMessage.success);
       })
-        .catch(error => {
-          console.error(error);
-          this.modalHelper.openMessageModal(this.dialogService,StatusMessage.error);
-        });
     }
-
   }
 
   getFormControlValidations(formControlErrors: ValidationErrors | null | undefined) {
     console.log(formControlErrors);
-
   }
 
-  onFormSubmit() {
+  async onFormSubmit() {
     if (this.articleForm.valid) {
       this.createArticle();
 
-      let filepath = this.fileUpload.formatFileBucketName(FileBuckets.article, this.article.title, this.file.name);
-      this.fileUpload.uploadFile(this.file, filepath)
-        .then(imageUrl => {
-          this.article.photoUrl = imageUrl;
-        }).then(() => {
-          this.uploadArticle();
-          this.modalHelper.openMessageModal(this.dialogService,StatusMessage.success)
-          // this.router.navigate([`admin/upload/index`]);
-        }).catch(error => {
-          console.error(error)
-        });
+      if(this.file || !this.selectedUrl){
+        let filepath = this.fileUpload.formatFileBucketName(FileBuckets.article, this.article.title, this.file.name);
+        try{
+          this.article.photoUrl = await this.fileUpload.uploadFile(this.file, filepath);
+        }catch(e){
+          console.error(e);
+          this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
+          return;  
+        }
+      }else{
+        this.article.photoUrl = this.selectedUrl;
+      }
+
+      this.uploadArticle().then(()=>{
+        this.modalHelper.openMessageModal(this.dialogService, StatusMessage.success);
+        this.router.navigate([`admin/upload/index`]);
+      }).catch(error => {
+        console.error(error);
+        this.modalHelper.openMessageModal(this.dialogService,StatusMessage.error);
+      });;
+
+      // let filepath = this.fileUpload.formatFileBucketName(FileBuckets.article, this.article.title, this.file.name);
+      // this.fileUpload.uploadFile(this.file, filepath)
+      //   .then(imageUrl => {
+      //     this.article.photoUrl = imageUrl;
+      //   }).then(() => {
+      //     this.uploadArticle();
+      //     this.modalHelper.openMessageModal(this.dialogService,StatusMessage.success)
+      //     // this.router.navigate([`admin/upload/index`]);
+      //   }).catch(error => {
+      //     console.error(error)
+      //   });
     }
     else {
       this.modalHelper.openMessageModal(this.dialogService, StatusMessage.validationError);

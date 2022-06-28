@@ -1,0 +1,50 @@
+<nb-card>
+    <nb-card-header>
+      <h5>Upload - Posters</h5>
+    </nb-card-header>
+    <nb-card-body>
+  
+      <form class="go-form poster" [formGroup]="presentationForm" (ngSubmit)="onFormSubmit()">
+        <div class="form-top-section">
+          <div class="top-section-left-side">
+            <div class="go-form-row">
+              <label for="document-title">Τίτλος</label>
+              <input nbInput id="document-title" formControlName="title" placeholder="Βάλε τίτλο" type="text" autocomplete="off" />
+              <span *ngIf="presentationForm.get('title')?.errors && presentationForm.get('title')?.dirty" class="validation-error-message">
+                Χρειάζονται τουλάχιστον 5 γράμματα.
+              </span>
+            </div>
+            <div class="go-form-row image-selection">
+              <label for="document-image">Αφίσα</label>
+              <input nbInput id="document-image" class="image-select-input" formControlName="photoUrl" type="file"
+              [accept]="allowedImageTypes" (change)="getFile($event.target, 'poster'); showFile($event.target, 'poster')"/>
+              <span *ngIf="presentationForm.get('poster')?.errors && presentationForm.get('poster')?.dirty" class="validation-error-message">
+                Η εικόνα είναι απαραίτητη για το άρθρο.
+              </span>
+              <!-- <input nbInput id="poster-poster" formControlName="poster" type="file" (change)="pushFileToArray($event.target)"/> -->
+              <!-- <input nbInput id="document-image" formControlName="photoUrl" type="text" hidden />
+              <button nbButton size="small" class="select-image-btn" (click)="openFileDisplayModal($event)">ΔΙΑΛΕΞΕ ΑΦΙΣΑ</button> -->
+            </div>
+            <div class="go-form-row date-selection release-date">
+              <label for="document-release-date">Ημερομηνία έκδοσης</label>
+              <input nbInput id="document-release-date" placeholder="Βάλε ημερομηνία έκδοσης" [nbDatepicker]="dateReleased"
+                formControlName="dateReleased">
+              <nb-datepicker #dateReleased></nb-datepicker>
+            </div>
+          </div>
+          <div class="top-section-right-side">
+            <div class="image-container" *ngIf="selectedPosterUrl">
+              <img [src]="selectedPosterUrl">
+            </div>
+          </div>
+        </div>
+        <div class="go-form-row text">
+          <label for="document-text">Περιεχόμενο</label>
+          <textarea nbInput id="document-text" formControlName="text" placeholder="Βάλε το κείμενο της αφίσας"
+            fieldSize="large" rows="15" fullWidth></textarea>
+        </div>
+        <button nbButton class="submit-button" placeholder="Ανέβασε την αφίσα!" type="submit">Αποθηκευση</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+  

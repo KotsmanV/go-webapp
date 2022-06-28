@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseApp, getApp, initializeApp } from 'firebase/app'
 import { addDoc, collection, doc, Firestore, getDoc, getDocs, getFirestore, updateDoc } from 'firebase/firestore'
 import { environment } from 'src/environments/environment';
-import { Article, DocumentTypes, Festival, Poster, Presentation } from '../models/database-models';
+import { Article, DocumentTypes, Festival, FluidObj, GameOverDocument, Poster, Presentation } from '../models/database-models';
 
 @Injectable({
   providedIn: 'root'
@@ -125,7 +125,7 @@ export class FirebaseService {
     })
   }
 
-  async addDocument(documentType: DocumentTypes, document: Poster | Article | Festival | Presentation) {
+  async addDocument(documentType: DocumentTypes, document: GameOverDocument) {
     try {
       await addDoc(collection(this.db, documentType.valueOf()), Object.assign({}, document));
     } catch (e) {
@@ -163,5 +163,24 @@ export class FirebaseService {
     }
   }
 
+  async updateDocument(documentType: DocumentTypes, document: GameOverDocument) {
+    let docRef = doc(this.db, documentType.valueOf(), document.id);
+    try {
+      let updateObj = this.createUpdateDocument(document);
+      await updateDoc(docRef, updateObj);
+    } catch (e) {
+      console.error(`error updating poster`, e);
+    }
+  }
+
+  createUpdateDocument(sourceDoc: GameOverDocument){
+    let targetDoc:FluidObj = {};
+
+    for (const key in sourceDoc) {
+      targetDoc[key] = sourceDoc[key as keyof typeof sourceDoc];
+    }
+    targetDoc['dateUpdated'] = new Date(new Date());
+    return targetDoc;
+  }
 
 }

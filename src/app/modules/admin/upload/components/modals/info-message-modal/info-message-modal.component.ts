@@ -8,14 +8,21 @@ import { NbDialogRef } from '@nebular/theme';
 })
 export class InfoMessageModalComponent implements OnInit {
 
-  constructor(private dialogRef:NbDialogRef<InfoMessageModalComponent>) { }
+  constructor(private dialogRef: NbDialogRef<InfoMessageModalComponent>) { }
 
-  @Input() message!:string;
+  @Input() message!: string | string[];
 
   ngOnInit(): void {
+    if(typeof this.message !== 'string'){
+      let concatenatedMessage:string = ``;
+      this.message.forEach(item=>{
+        concatenatedMessage += `${item}\n`;
+      });
+      this.message = concatenatedMessage;
+    }
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialogRef.close();
   }
 

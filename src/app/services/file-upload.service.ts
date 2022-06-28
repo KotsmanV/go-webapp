@@ -54,9 +54,6 @@ export class FileUploadService {
         return url;
       });
     }
-    
-
-    
   }
 
   getAllFiles(section: string) {

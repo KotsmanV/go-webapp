@@ -1,0 +1,61 @@
+.go-form{
+    display: grid;
+    grid-auto-flow: row;
+    gap: 1rem;
+    align-items: center;
+    grid-template-rows: 8fr auto;
+}
+
+.form-top-section{
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.top-section-left-side{
+    display: grid;
+    gap:1rem;
+}
+
+.top-section-right-side{
+    display: grid;
+    place-items: center;
+}
+
+.go-form-row{
+    display: grid;
+    grid-template-rows: 0.5fr 1fr 0.5fr;
+}
+
+.go-form-row.text{
+    grid-template-rows: unset;
+    grid-auto-flow: row;
+}
+.image-selection{
+    gap:0.5rem;
+}
+
+.select-image-btn{
+    justify-self: left;
+}
+
+
+img{
+    width: 8rem;
+    height: calc(8rem * 1.5);
+}
+
+label {
+    font-family: 'Open Sans, sans-serif';
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.validation-error-message{
+    color: red;
+    font-size: smaller;
+}
+
+.submit-button{
+    justify-self: center;
+}

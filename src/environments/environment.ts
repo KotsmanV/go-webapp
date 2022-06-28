@@ -11,8 +11,22 @@ export const environment = {
     storageBucket: "game-over-webapp.appspot.com",
     messagingSenderId: "597503331914",
     appId: "1:597503331914:web:22570fd6547142bb18e0b3"
+  },
+  tokenValidation:{
+    userIds: [
+      `b8RLEw2jRXYLJxhVLvxBfxVAaH12`,
+      `gTiQtOpJ9WPdMAwLd7haivHBFvH2`
+    ],
+    aud:`game-over-webapp`,
+    iss:`https://securetoken.google.com/game-over-webapp`,
+    deviceId:`gTiQtOpJ9WPdMAwLd7haivHBFvH2`
+
+
   }
+
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file

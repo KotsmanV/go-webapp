@@ -24,7 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FileViewModalComponent } from './components/file-view-modal/file-view-modal.component';
 import { MatTableModule } from '@angular/material/table';
 import { PublicationsComponent } from './components/publications/publications.component';
-import { PresentationsComponent } from './components/presentations/presentations.component';
+import { PresentationUploadComponent } from './components/presentations/presentations-upload.component';
 import { ArticleUploadComponent } from './components/articles/articles-upload.component';
 import { InfoMessageModalComponent } from './components/modals/info-message-modal/info-message-modal.component'
 
@@ -38,7 +38,7 @@ import { InfoMessageModalComponent } from './components/modals/info-message-moda
     UploadIndexComponent,
     FileViewModalComponent,
     PublicationsComponent,
-    PresentationsComponent,
+    PresentationUploadComponent,
     ArticleUploadComponent,
     InfoMessageModalComponent
   ],

@@ -41,7 +41,7 @@ export class ModalHelper {
   //   })
   // }
 
-  openMessageModal(dialogServiceRef: NbDialogService, messageInput: string | StatusMessage){
+  openMessageModal(dialogServiceRef: NbDialogService, messageInput: string | string[] | StatusMessage){
     dialogServiceRef.open(InfoMessageModalComponent,{
       context:{
         message: messageInput

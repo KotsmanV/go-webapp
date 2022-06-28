@@ -14,12 +14,23 @@ export class LoginComponent implements OnInit {
     username: new FormControl(``),
     password: new FormControl(``)
   })
-  constructor(private account:AccountService, private router:Router) { }
 
-  ngOnInit(): void {
-    if(this.account.user){
-      this.router.navigate([`admin`]);
-    }
+  hasLoggedIn: boolean = false;
+
+  constructor(private account:AccountService, private router:Router) { 
+    console.log(this.account.auth.currentUser);
+    this.account.hasLoggedIn.asObservable().subscribe(value => {
+			this.hasLoggedIn = value;
+		})
+  }
+  
+  async ngOnInit() {
+    
+    await this.account.auth.onAuthStateChanged(user=>{
+      if(user){
+        this.router.navigate([`admin`]);  
+      }
+    });
   }
 
   login(){

@@ -1,4 +1,4 @@
-export enum DocumentTypes{
+enum DocumentTypes{
     poster = `posters`,
     article = `articles`,
     presentation = `presentations`,
@@ -6,7 +6,7 @@ export enum DocumentTypes{
     magazine = `magazines`
 }
 
-export enum FileBuckets{
+enum FileBuckets{
     poster = `posters/`,
     article = `articles/`,
     festival = `festivals/`,
@@ -14,7 +14,7 @@ export enum FileBuckets{
     magazine = `magazines/`,
 }
 
-export interface Poster{
+interface Poster{
     id:string;
     title:string,
     text:string,
@@ -23,7 +23,7 @@ export interface Poster{
     dateReleased:Date |null
 }
 
-export class Poster implements Poster{
+class Poster implements Poster{
     id = ``;
     title = ``;
     text = ``;
@@ -32,7 +32,7 @@ export class Poster implements Poster{
     dateReleased:Date | null = null;
 }
 
-export interface Presentation{
+interface Presentation{
     id:string;
     title:string,
     text:string,
@@ -43,7 +43,7 @@ export interface Presentation{
     dateUploaded:Date | null
 }
 
-export class Presentation implements Presentation{
+class Presentation implements Presentation{
     constructor(title:string, text:string, dateReleased:Date | null){
         this.title = title;
         this.text = text;
@@ -61,7 +61,7 @@ export class Presentation implements Presentation{
     dateUploaded:Date | null = null;
 }
 
-export interface Article {
+interface Article {
     id:string;
     title:string,
     text:string,
@@ -70,7 +70,7 @@ export interface Article {
     dateUploaded:Date | null
 }
 
-export class Article{
+class Article{
     id = ``;
     title = ``;
     text = ``;
@@ -79,7 +79,7 @@ export class Article{
     dateReleased:Date | null = null;
 }
 
-export interface Festival{
+interface Festival{
     id:string;
     title:string,
     text:string,
@@ -89,3 +89,11 @@ export interface Festival{
     dateReleased:Date | null,
     dateUploaded:Date | null
 }
+
+interface FluidObj {
+	[key: string]: any
+}
+
+type GameOverDocument = Article | Festival | Poster | Presentation;
+
+export { DocumentTypes, FileBuckets, FluidObj, GameOverDocument, Article, Festival, Poster, Presentation }

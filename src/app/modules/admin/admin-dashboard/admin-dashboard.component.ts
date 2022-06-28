@@ -39,6 +39,10 @@ export class AdminDashboardComponent implements OnInit {
           link: `upload/poster`
         },
         {
+          title: `presentations`,
+          link: `upload/presentation`
+        },
+        {
           title: `festivals`,
           link: `upload/festival`
         },
