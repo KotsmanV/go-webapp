@@ -10,6 +10,7 @@ const routes: Routes = [
     { path:`upload`, loadChildren: ()=> import(`./upload/upload.module`).then(m=>m.UploadModule)}
   ]},
   { path:`login`, component:LoginComponent},
+  { path: `**`, canActivate:[AuthGuard], component: AdminDashboardComponent},
   { path: `**`, canActivate:[AuthGuard], component: AdminDashboardComponent}
 ];
 

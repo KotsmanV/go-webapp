@@ -39,7 +39,7 @@ export class FileUploadService {
   }
 
   formatFileBucketName(bucket:FileBuckets, documentName:string, filename:string){
-    return `${bucket}${documentName}-${filename}`.replace(/\s/g, '_').toLowerCase();
+    return `${bucket}${documentName}/${filename}`.replace(/\s/g, '_').toLowerCase();
   }
 
   async uploadFile(file: any, filename: string) {

@@ -20,13 +20,15 @@ nb-card-body{
 
 .go-form{
     display: grid;
-    grid-auto-flow: row;
+    /* grid-auto-flow: row; */
+    grid-template-rows: 2fr 2fr 1fr;
     gap: 1rem;
     place-items: center;
 }
 
 .go-form-row{
     display: inherit;
+    /* grid-template-rows: 0.5fr 1fr 0.5fr; */
     width: 20rem;
 }
 
@@ -39,4 +41,12 @@ label {
 
 .submit-button{
     justify-self: center;
+}
+
+.login-error{
+    color:red;
+}
+
+.show-error{
+    display: block;
 }

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FirebaseApp, getApp, initializeApp } from 'firebase/app';
 import { Auth, browserLocalPersistence, getAuth, setPersistence, signInWithCredential, signInWithCustomToken, signInWithEmailAndPassword, signOut, User } from 'firebase/auth'
 import jwtDecode from 'jwt-decode';
-import { ReplaySubject, Subject } from 'rxjs';
+import { ReplaySubject, retry, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FirebaseJwt } from '../models/helper-models';
 
@@ -30,13 +30,15 @@ export class AccountService {
   }
 
   async signIn(username:string, password:string){
-    signInWithEmailAndPassword(this.auth, username, password).then(credential =>{
+    await this.auth.setPersistence(browserLocalPersistence);
+    return signInWithEmailAndPassword(this.auth, username, password).then(credential =>{
       this.user = credential.user;
       this.hasLoggedIn.next(true);
       this.router.navigate([`admin`]);
-    }).then(()=>this.auth.setPersistence(browserLocalPersistence))
-    .catch(error=>{
-      console.error(`User sign in error:`, error);
+      return true;
+    }).catch(error=>{
+      console.error(error);
+      return false;
     })
   }
 

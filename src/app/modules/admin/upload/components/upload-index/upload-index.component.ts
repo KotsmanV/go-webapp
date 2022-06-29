@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NbTabComponent } from '@nebular/theme';
-import { Article, DocumentTypes, Festival, Poster, Presentation } from 'src/app/models/database-models';
+import { Article, DocumentTypes, Festival, GameOverDocument, Poster, Presentation } from 'src/app/models/database-models';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
@@ -107,7 +107,7 @@ export class UploadIndexComponent implements OnInit {
     return new Date(timestamp?.seconds * 1000);
   }
 
-  showDetails(documentType: DocumentTypes, document: Poster | Article | Festival | Presentation) {
+  showDetails(documentType: DocumentTypes, document: GameOverDocument) {
     this.dataStorage.document = document;
     this.dataStorage.documentId = document.id;
     console.log(document);

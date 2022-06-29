@@ -10,11 +10,20 @@
         <form class="go-form signin" [formGroup]="loginForm" (ngSubmit)="login()">
           <div class="go-form-row">
             <label for="username">Username</label>
-            <input nbInput id="username" formControlName="username" placeholder="username" type="text"/>
+            <input nbInput id="username" formControlName="username" placeholder="username" type="text" autocomplete="email"/>
+            <!-- <div *ngIf="showEmailError()" class="login-error">
+              <span>Τα στοιχεία πρόσβασης δεν είναι σωστά.</span>
+            </div> -->
           </div>
           <div class="go-form-row">
             <label for="password">Password</label>
             <input nbInput id="password" formControlName="password" placeholder="password" type="password"/>
+            <!-- <div *ngIf="showPasswordError()" class="login-error">
+              <span>Τα στοιχεία πρόσβασης δεν είναι σωστά.</span>
+            </div> -->
+          </div>
+          <div class="go-form-row login-error">
+            <span *ngIf="showPasswordError() || showEmailError() || !isErrorMessageHidden" class="login-error">Τα στοιχεία πρόσβασης δεν είναι σωστά.</span>
           </div>
           <button nbButton class="submit-button" type="submit">Login</button>
         </form>
