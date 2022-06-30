@@ -3,4 +3,6 @@
 
     display: grid;
     margin: 0 auto;
+
+    gap:2rem;
 }

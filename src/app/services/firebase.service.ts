@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FirebaseApp, getApp, initializeApp } from 'firebase/app'
-import { addDoc, collection, doc, Firestore, getDoc, getDocs, getFirestore, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, collectionGroup, doc, Firestore, getDoc, getDocs, getFirestore, limit, orderBy, query, updateDoc, where } from 'firebase/firestore'
 import { environment } from 'src/environments/environment';
 import { Article, DocumentTypes, Festival, FluidObj, GameOverDocument, Poster, Presentation } from '../models/database-models';
 
@@ -181,6 +181,29 @@ export class FirebaseService {
     }
     targetDoc['dateUpdated'] = new Date(new Date());
     return targetDoc;
+  }
+
+  async getLatestDocuments(){
+    let latest:GameOverDocument[] = [];
+
+    let documentTypes = Object.values(DocumentTypes);
+    for (let i = 0; i < documentTypes.length; i++){
+      let doc = await this.getLatestDocument(documentTypes[i]);
+      if(doc){
+        latest.push(doc);
+      }
+    }
+    return latest;
+  }
+
+  async getLatestDocument(documentType:DocumentTypes){
+    let documents = query(collection(this.db, documentType), orderBy(`dateUploaded`, `desc`), limit(1));
+    return await getDocs(documents).then(response=>{
+      if(response.docs.length > 0){
+        return response.docs[0].data() as GameOverDocument;
+      }
+      return;
+    });
   }
 
 }

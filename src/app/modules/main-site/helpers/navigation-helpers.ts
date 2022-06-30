@@ -4,4 +4,12 @@ function navigateTo(url: string, router:Router){
     router.navigate([url]);
 }
 
-export { navigateTo} 
+class CommonComponentFunctionality{
+    constructor(private router:Router){}
+
+    navigateTo(url: string){
+        this.router.navigate([url]);
+    }
+}
+
+export { navigateTo, CommonComponentFunctionality} 
