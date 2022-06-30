@@ -1,0 +1,39 @@
+.navbar-container{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content:space-between;
+}
+
+.logo img{
+    width: 5rem;
+}
+
+.menu{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap:1rem;
+    place-items: center;
+}
+
+.menu-item{
+    color: #0000FF;
+    margin:0.2rem;
+    font-weight: 500;
+}
+
+.menu-item:hover{
+    cursor: pointer;
+    transform: rotate(-5deg);
+    /* transform: translate(0,-5px); */
+    text-decoration: underline;
+}
+
+.banner{
+    display:grid;
+    justify-items: center;
+}
+
+.banner img{
+    width: 100%;
+}
