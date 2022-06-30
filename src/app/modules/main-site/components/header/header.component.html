@@ -4,11 +4,11 @@
             <img src="/assets/img/logogameover.svg">
         </div>
         <div class="menu">
-           <span class="menu-item">ΑΡΧΙΚΗ</span> 
-           <span class="menu-item">ΑΡΘΡΑ</span> 
-           <span class="menu-item">ΕΙΣΗΓΗΣΕΙΣ</span> 
-           <span class="menu-item">ΦΕΣΤΙΒΑΛ</span> 
-           <span class="menu-item">ΣΧΕΤΙΚΑ ΜΕ ΜΑΣ</span>
+           <span class="menu-item" (click)="navigateTo('')">ΑΡΧΙΚΗ</span> 
+           <span class="menu-item" (click)="navigateTo('articles')">ΑΡΘΡΑ</span> 
+           <span class="menu-item" (click)="navigateTo('presentations')">ΕΙΣΗΓΗΣΕΙΣ</span> 
+           <span class="menu-item" (click)="navigateTo('festivals')">ΦΕΣΤΙΒΑΛ</span> 
+           <span class="menu-item" (click)="navigateTo('about')">ΣΧΕΤΙΚΑ ΜΕ ΜΑΣ</span>
         </div>
     </div>
     <div class="banner">

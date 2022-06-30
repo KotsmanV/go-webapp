@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { navigateTo } from '../../helpers/navigation-helpers';
 
 @Component({
   selector: 'app-homepage',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
 
+  navigateTo = (link:string) => navigateTo(link, this.router);
 }

@@ -7,6 +7,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { PostersComponent } from './components/posters/posters.component';
+import { ArticlesComponent } from './components/articles/articles.component';
+import { FestivalsComponent } from './components/festivals/festivals.component';
+import { PresentationsComponent } from './components/presentations/presentations.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 @NgModule({
@@ -16,6 +21,11 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     NavbarComponent,
     BannerComponent,
     HomepageComponent,
+    PostersComponent,
+    ArticlesComponent,
+    FestivalsComponent,
+    PresentationsComponent,
+    AboutComponent,
   ],
   imports: [
     CommonModule,

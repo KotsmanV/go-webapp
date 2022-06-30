@@ -1,0 +1,23 @@
+.heading{
+    color: var(--blue);
+}
+
+.page-container{
+
+    display: grid;
+    grid-template-columns: 1.5fr 5fr;
+
+    gap:2rem;
+}
+
+.go-to-button{
+    color: var(--blue);
+    border: 1px solid var(--blue);
+    border-radius: 6px;
+}
+
+.go-to-button:hover{
+    cursor: pointer;
+    background-color: var(--blue);
+    color: #f0f0f0;
+}

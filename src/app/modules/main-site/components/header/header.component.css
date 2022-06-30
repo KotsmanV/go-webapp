@@ -23,7 +23,7 @@
 }
 
 .menu-item{
-    color: #0000FF;
+    color: var(--blue);
     margin:0.2rem;
     font-weight: 500;
 }
