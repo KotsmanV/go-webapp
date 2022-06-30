@@ -1,0 +1,17 @@
+<nb-card class="modal-card">
+    <nb-card-header class="modal-card-header">
+        <button nbButton size="tiny" class="close-modal-btn" (click)="closeModal()">X</button>
+    </nb-card-header>
+    <nb-card-body class="modal-content">
+        <pdf-viewer
+            *ngIf="pdfUrl"
+            class="pdf-viewer"
+            [src]="pdfUrl"
+            [show-all]="true"
+            [autoresize]="true"
+            [original-size]="true"
+            [fit-to-page]="true"
+            [show-borders]="false"
+            ></pdf-viewer>
+    </nb-card-body>
+</nb-card>

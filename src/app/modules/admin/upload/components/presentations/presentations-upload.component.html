@@ -78,19 +78,7 @@
                         <div>
                             <label>Εισήγηση</label>
                         </div>
-                        <button nbButton (click)="openPdfModal($event)">Δες το pdf.</button>
-                        <!-- <pdf-viewer
-                            *ngIf="urls.pdf"
-                            class="pdf-viewer"
-                            [src]="urls.pdf"
-                            [original-size]="false"
-                            [show-all]="true"
-                            [autoresize]="true"
-                            [fit-to-page]="true"
-                            [zoom]="0.8"
-                            (click)="openPdfModal($event)"
-                            ></pdf-viewer> -->
-                        <!-- <iframe class="pdf-viewer" [src]="domSanitizer.bypassSecurityTrustResourceUrl(urls.pdf)" type="application/pdf"></iframe> -->
+                        <button nbButton size="tiny" (click)="openPdfModal($event)" [disabled]="!urls.pdf">Δες το pdf</button>
                     </div>
                 </div>
             </div>

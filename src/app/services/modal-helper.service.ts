@@ -3,6 +3,7 @@ import { NbDialogService } from '@nebular/theme';
 import { StatusMessage } from '../models/enums';
 import { FileViewModalComponent } from '../modules/admin/upload/components/file-view-modal/file-view-modal.component';
 import { InfoMessageModalComponent } from '../modules/admin/upload/components/modals/info-message-modal/info-message-modal.component';
+import { PdfViewerModalComponent } from '../modules/admin/upload/components/modals/pdf-viewer-modal/pdf-viewer-modal.component';
 
 interface ModalDataObject {
   name: string,
@@ -45,6 +46,14 @@ export class ModalHelper {
     dialogServiceRef.open(InfoMessageModalComponent,{
       context:{
         message: messageInput
+      }
+    });
+  }
+
+  openPdfModal(dialogServiceRef: NbDialogService, incomingPdfUrl:string){
+    dialogServiceRef.open(PdfViewerModalComponent,{
+      context:{
+        pdfUrl:incomingPdfUrl
       }
     });
   }

@@ -1,0 +1,19 @@
+.modal-card{
+    width: 70vw;
+    height: 85vh;
+}
+.modal-card-header{
+    display: grid;
+}
+.close-modal-btn{
+    justify-self: right;
+}
+
+.modal-content{
+    padding: 0;
+}
+
+.pdf-viewer{
+    height: 100%;
+    width: 100%;
+}

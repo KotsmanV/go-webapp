@@ -29,6 +29,7 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { PdfViewerModalComponent } from './components/modals/pdf-viewer-modal/pdf-viewer-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     PublicationsComponent,
     PresentationUploadComponent,
     ArticleUploadComponent,
-    InfoMessageModalComponent
+    InfoMessageModalComponent,
+    PdfViewerModalComponent
   ],
   imports: [
     CommonModule,

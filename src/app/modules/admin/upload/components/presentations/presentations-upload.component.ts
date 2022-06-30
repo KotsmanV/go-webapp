@@ -151,11 +151,9 @@ export class PresentationUploadComponent implements OnInit {
     }
   }
 
-  openPdfModal(event: any) {
+  openPdfModal(event:any) {
     event.preventDefault();
-    this.router.navigate([]).then(() => {
-      window.open(this.urls.pdf, `_blank`)
-    });
+    this.modalHelper.openPdfModal(this.dialogService, this.urls.pdf);
   }
 
   createPresentation() {
