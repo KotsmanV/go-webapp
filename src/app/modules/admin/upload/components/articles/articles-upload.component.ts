@@ -96,7 +96,7 @@ export class ArticleUploadComponent implements OnInit {
       }
       reader.readAsDataURL(eventTarget.files[0]);
     } else {
-      this.selectedUrl = this.article.photoUrl;
+      this.selectedUrl = this.article.postImageUrl;
     }
   }
 
@@ -121,14 +121,14 @@ export class ArticleUploadComponent implements OnInit {
       if(this.file || !this.selectedUrl){
         let filepath = this.fileUpload.formatFileBucketName(FileBuckets.article, this.article.title, this.file.name);
         try{
-          this.article.photoUrl = await this.fileUpload.uploadFile(this.file, filepath);
+          this.article.postImageUrl = await this.fileUpload.uploadFile(this.file, filepath);
         }catch(e){
           console.error(e);
           this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
           return;  
         }
       }else{
-        this.article.photoUrl = this.selectedUrl;
+        this.article.postImageUrl = this.selectedUrl;
       }
 
       this.uploadArticle().then(()=>{

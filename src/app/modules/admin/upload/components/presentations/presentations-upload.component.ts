@@ -179,7 +179,7 @@ export class PresentationUploadComponent implements OnInit {
     if (!this.presentation.posterUrl) {
       let filepath = this.fileUpload.formatFileBucketName(FileBuckets.presentation, this.presentation.title, this.posterFile.name);
       try {
-        this.presentation.posterUrl = await this.fileUpload.uploadFile(this.posterFile, filepath);
+        this.presentation.posterUrl = this.presentation.postImageUrl = await this.fileUpload.uploadFile(this.posterFile, filepath);
       } catch (e) {
         console.error(e);
         uploadErrors.push("Η αφίσα δεν ανέβηκε.")

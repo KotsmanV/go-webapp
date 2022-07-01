@@ -10,6 +10,10 @@ class CommonComponentFunctionality{
     navigateTo(url: string){
         this.router.navigate([url]);
     }
+
+    showDate(timestamp: any) {
+        return new Date(timestamp?.seconds * 1000);
+      }
 }
 
 export { navigateTo, CommonComponentFunctionality} 

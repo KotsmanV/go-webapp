@@ -18,7 +18,8 @@ interface Poster{
     id:string;
     title:string,
     text:string,
-    photoUrl:string,
+    posterUrl:string,
+    postImageUrl:string,
     dateUploaded:Date |null,
     dateReleased:Date |null
 }
@@ -27,7 +28,8 @@ class Poster implements Poster{
     id = ``;
     title = ``;
     text = ``;
-    photoUrl = ``;
+    posterUrl = ``;
+    postImageUrl = ``;
     dateUploaded: Date | null = null;
     dateReleased:Date | null = null;
 }
@@ -36,6 +38,7 @@ interface Presentation{
     id:string;
     title:string,
     text:string,
+    postImageUrl:string,
     posterUrl:string,
     coverUrl:string,
     pdfUrl:string,
@@ -54,6 +57,7 @@ class Presentation implements Presentation{
     id = ``;
     title = ``;
     text = ``;
+    postImageUrl = ``;
     posterUrl = ``;
     coverUrl = ``;
     pdfUrl = ``;
@@ -65,7 +69,7 @@ interface Article {
     id:string;
     title:string,
     text:string,
-    photoUrl:string,
+    postImageUrl:string,
     dateReleased:Date | null,
     dateUploaded:Date | null
 }
@@ -74,7 +78,7 @@ class Article{
     id = ``;
     title = ``;
     text = ``;
-    photoUrl = ``;
+    postImageUrl = ``;
     dateUploaded: Date | null = null;
     dateReleased:Date | null = null;
 }
@@ -83,6 +87,7 @@ interface Festival{
     id:string;
     title:string,
     text:string,
+    postImageUrl:string,
     photoUrls:string[],
     posterUrl:string,
     coverUrls:string[],

@@ -141,7 +141,7 @@ export class FirebaseService {
         text: document.text,
         dateReleased: document.dateReleased,
         dateUpdated: new Date(),
-        photoUrl: document.photoUrl
+        photoUrl: document.posterUrl
       });
     } catch (e) {
       console.error(`error updating poster`, e);
@@ -156,7 +156,7 @@ export class FirebaseService {
         text: document.text,
         dateReleased: document.dateReleased,
         dateUpdated: new Date(),
-        photoUrl: document.photoUrl
+        photoUrl: document.postImageUrl
       });
     } catch (e) {
       console.error(`error updating poster`, e);

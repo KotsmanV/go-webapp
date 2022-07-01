@@ -19,7 +19,8 @@ const routes: Routes = [
       { path: `about`, component: AboutComponent },
     ]
   },
-  { path: `**`, redirectTo: `` },
+  { path:`admin`, redirectTo:`/admin`, pathMatch:`full`},
+  { path: `**`, redirectTo: ``, pathMatch:`full` },
 ];
 
 @NgModule({

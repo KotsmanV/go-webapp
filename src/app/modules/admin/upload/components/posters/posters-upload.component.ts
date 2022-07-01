@@ -90,7 +90,7 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
 
   createPoster(){
     this.poster.title = this.posterForm.get(`title`)?.value;
-    this.poster.photoUrl = this.posterForm.get(`photoUrl`)?.value;
+    this.poster.posterUrl = this.poster.postImageUrl =  this.posterForm.get(`photoUrl`)?.value;
     this.poster.text = this.posterForm.get(`text`)?.value;
     this.poster.dateUploaded = new Date();
     this.poster.dateReleased = this.posterForm.get(`dateReleased`)?.value;
@@ -122,7 +122,7 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
       }
       reader.readAsDataURL(eventTarget.files[0]);
     } else {
-      this.selectedUrl = this.poster.photoUrl;
+      this.selectedUrl = this.poster.posterUrl;
     }
   }
 
@@ -157,14 +157,14 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
       if(this.file || !this.selectedUrl){
         let filepath = this.fileUpload.formatFileBucketName(FileBuckets.poster, this.poster.title, this.file.name);
         try{
-          this.poster.photoUrl = await this.fileUpload.uploadFile(this.file, filepath);
+          this.poster.posterUrl = await this.fileUpload.uploadFile(this.file, filepath);
         }catch(e){
           console.error(e);
           this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
           return;  
         }
       }else{
-        this.poster.photoUrl = this.selectedUrl;
+        this.poster.posterUrl = this.selectedUrl;
       }
 
       this.uploadPoster().then(()=>{
