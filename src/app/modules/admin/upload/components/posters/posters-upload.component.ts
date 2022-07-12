@@ -34,12 +34,10 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
     
   ])
 
-  allowedFileTypes = this.fileUpload.allowedFileTypes.image;
   selectedUrl!:string;
   file:any;
 
   fileArray:File[] = [];
-  file:any;
   posterUrls:string[] = [];
 
 
@@ -103,8 +101,8 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
         console.log(`invalid file type`);
         return;
       }
-      if (eventTarget.files[0].size > this.fileUpload.fileMaxSize) {
-        console.log(`${eventTarget.files[0].size} > ${this.fileUpload.fileMaxSize}`);
+      if (eventTarget.files[0].size > this.fileUpload.imageMaxSize) {
+        console.log(`${eventTarget.files[0].size} > ${this.fileUpload.imageMaxSize}`);
         return;
       }
 
@@ -132,19 +130,6 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
       this.fileArray.push(file)
     }
     console.log(this.file);
-  }
-
-
-  showFile(eventTarget: any) {
-    if (eventTarget.files && eventTarget.files[0]) {
-      var reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.selectedUrl = event.target.result;
-      }
-      reader.readAsDataURL(eventTarget.files[0]);
-    } else {
-      this.selectedUrl = this.poster.photoUrl;
-    }
   }
 
   validatePoster():boolean{

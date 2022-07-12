@@ -98,8 +98,8 @@ export class PresentationUploadComponent implements OnInit {
         return;
       }
 
-      if (type != `pdf` && eventTarget.files[0].size > this.fileUpload.fileMaxSize) {
-        console.log(`${eventTarget.files[0].size} > ${this.fileUpload.fileMaxSize}`);
+      if (type != `pdf` && eventTarget.files[0].size > this.fileUpload.imageMaxSize) {
+        console.log(`${eventTarget.files[0].size} > ${this.fileUpload.imageMaxSize}`);
         if (type == `poster`) {
           this.posterFile = null;
           this.urls.poster = ``;

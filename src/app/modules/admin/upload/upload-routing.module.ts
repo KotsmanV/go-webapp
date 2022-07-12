@@ -5,7 +5,6 @@ import { FestivalUploadComponent } from './components/festivals/festivals-upload
 import { MagazineUploadComponent } from './components/magazines/magazines-upload.component';
 import { PosterUploadComponent } from './components/posters/posters-upload.component';
 import { PresentationUploadComponent } from './components/presentations/presentations-upload.component';
-import { TextUploadComponent } from './components/texts/texts-upload.component';
 import { UploadBaseComponent } from './components/upload-home/upload-base.component';
 import { UploadIndexComponent } from './components/upload-index/upload-index.component';
 
