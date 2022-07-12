@@ -17,7 +17,7 @@ export class FileUploadService {
     pdf:['.pdf']
   }
 
-  fileMaxSize = 2097152 //bytes;
+  imageMaxSize = 2097152 //bytes;
   firebaseFileBuckets = {
     articles: `articles/`,
     posters:`posters/`,
@@ -36,6 +36,7 @@ export class FileUploadService {
       this.appInstance = getApp();
     }
     this.storage = getStorage(getApp());
+    
   }
 
   formatFileBucketName(bucket:FileBuckets, documentName:string, filename:string){
@@ -92,10 +93,6 @@ export class FileUploadService {
       return new Array<string>();
     }));
   }
-
-
-
-
   getFileUrl(path: string,) {
 
   }

@@ -18,6 +18,7 @@ import { FileViewModalComponent } from '../file-view-modal/file-view-modal.compo
 })
 export class PosterUploadComponent implements OnInit, OnDestroy {
 
+  allowedFileTypes = this.fileService.allowedFileTypes.image;
   poster!: Poster;
   // poster!: Poster | undefined = new Poster();
 
@@ -38,7 +39,7 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
   file:any;
 
   fileArray:File[] = [];
-
+  file:any;
   posterUrls:string[] = [];
 
 
@@ -129,6 +130,20 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
   pushFileToArray(eventTarget:any){
     for (const file of eventTarget.files) {
       this.fileArray.push(file)
+    }
+    console.log(this.file);
+  }
+
+
+  showFile(eventTarget: any) {
+    if (eventTarget.files && eventTarget.files[0]) {
+      var reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.selectedUrl = event.target.result;
+      }
+      reader.readAsDataURL(eventTarget.files[0]);
+    } else {
+      this.selectedUrl = this.poster.photoUrl;
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
@@ -15,7 +15,7 @@ import { InfoMessageModalComponent } from '../modals/info-message-modal/info-mes
   templateUrl: './articles-upload.component.html',
   styleUrls: ['./articles-upload.component.css']
 })
-export class ArticleUploadComponent implements OnInit {
+export class ArticleUploadComponent implements OnInit, OnDestroy {
   constructor(private fileUpload: FileUploadService,
     private firebase: FirebaseService,
     private dataStorage: DataStorageService,
@@ -51,6 +51,11 @@ export class ArticleUploadComponent implements OnInit {
       this.article = new Article();
     }
   }
+  
+  ngOnDestroy(): void {
+    this.dataStorage.document = undefined;
+    this.dataStorage.documentId = ``;
+  }
 
   fillForm(article: any) {
     this.articleForm.get(`title`)?.setValue(article.title);
@@ -66,7 +71,7 @@ export class ArticleUploadComponent implements OnInit {
     // this.article.photoUrl = this.articleForm.get(`image`)?.value;
     this.article.text = this.articleForm.get(`text`)?.value;
     this.article.dateUploaded = new Date();
-    this.article.dateReleased = this.articleForm.get(`dateReleased`)?.value;
+    this.article.dateReleased = this.articleForm.get(`dateReleased`)?.value ?? new Date();
   }
 
 
@@ -76,8 +81,8 @@ export class ArticleUploadComponent implements OnInit {
         console.log(`invalid file type`);
         return;
       }
-      if (eventTarget.files[0].size > this.fileUpload.fileMaxSize) {
-        console.log(`${eventTarget.files[0].size} > ${this.fileUpload.fileMaxSize}`);
+      if (eventTarget.files[0].size > this.fileUpload.imageMaxSize) {
+        console.log(`${eventTarget.files[0].size} > ${this.fileUpload.imageMaxSize}`);
         return;
       }
 

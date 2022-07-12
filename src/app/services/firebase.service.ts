@@ -87,8 +87,13 @@ export class FirebaseService {
   getPoster(documentId: string, documentType: DocumentTypes) {
     let docRef = doc(this.db, documentType.valueOf(), documentId);
     return getDoc(docRef).then((response) => {
-      let poster: Poster = response.data() as Poster;
-      poster.id = response.id;
+      let poster:Poster;
+      if(response.exists()){
+        poster = response.data() as Poster;
+        poster.id = response.id;
+      }else{
+        poster = new Poster();
+      }
       return poster;
     }).catch(error => {
       console.error(`error retrieving poster`, error);
@@ -97,8 +102,13 @@ export class FirebaseService {
   getArticle(documentId: string, documentType: DocumentTypes) {
     let docRef = doc(this.db, documentType.valueOf(), documentId);
     return getDoc(docRef).then((response) => {
-      let article: Article = response.data() as Article;
-      article.id = response.id;
+      let article: Article;
+      if(response.exists()){
+        article = response.data() as Article;
+        article.id = response.id;
+      }else{
+        article = new Poster();
+      }
       return article;
     }).catch(error => {
       console.error(`error retrieving poster`, error);

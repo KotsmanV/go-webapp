@@ -51,8 +51,8 @@ export class AdminDashboardComponent implements OnInit {
           link: `upload/article`
         },
         {
-          title: `texts`,
-          link: `upload/text`
+          title: `presentations`,
+          link: `upload/presentation`
         },
         {
           title: `magazines`,

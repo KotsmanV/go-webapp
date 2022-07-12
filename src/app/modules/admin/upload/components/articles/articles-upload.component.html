@@ -18,8 +18,6 @@
             <label for="document-image">Εικόνα</label>
             <input nbInput id="document-image" class="image-select-input" formControlName="image" type="file"
               [accept]="allowedFileTypes" (change)="getFile($event.target); showFile($event.target)"/>
-            <!-- <input nbInput id="poster-poster" formControlName="photoUrl" type="text" hidden/> -->
-            <!-- <button nbButton class="select-image-btn" (click)="openFileDisplayModal($event)">ΔΙΑΛΕΞΕ ΑΦΙΣΑ</button> -->
             <span *ngIf="articleForm.get('image')?.errors&& articleForm.get('image')?.dirty" class="validation-error-message">
               Η εικόνα είναι απαραίτητη για το άρθρο.
             </span>

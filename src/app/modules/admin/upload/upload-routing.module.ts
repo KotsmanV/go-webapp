@@ -15,7 +15,7 @@ const routes: Routes = [
       { path:`poster`, component:PosterUploadComponent},
       { path:`presentation`, component:PresentationUploadComponent},
       { path:`festival`, component:FestivalUploadComponent},
-      { path:`text`, component:TextUploadComponent},
+       { path:`presentation`, component:PresentationUploadComponent},
       { path:`magazine`, component:MagazineUploadComponent},
       { path:`article`, component:ArticleUploadComponent}
   ]}

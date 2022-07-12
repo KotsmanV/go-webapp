@@ -31,13 +31,19 @@ import { MatTableModule } from '@angular/material/table';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PdfViewerModalComponent } from './components/modals/pdf-viewer-modal/pdf-viewer-modal.component';
 
+//MODALS
+import { FileViewModalComponent } from './components/file-view-modal/file-view-modal.component';
+import { InfoMessageModalComponent } from './components/modals/info-message-modal/info-message-modal.component';
+
 @NgModule({
   declarations: [
+    FileViewModalComponent,
+    InfoMessageModalComponent,
+    //UPLOAD COMPONENTS
+    UploadBaseComponent,
     PosterUploadComponent,
     FestivalUploadComponent,
-    TextUploadComponent,
     MagazineUploadComponent,
-    UploadBaseComponent,
     UploadIndexComponent,
     FileViewModalComponent,
     PublicationsComponent,
