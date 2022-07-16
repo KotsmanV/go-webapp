@@ -20,7 +20,7 @@
             </ng-container>
             <ng-container matColumnDef="image">
               <th mat-header-cell *matHeaderCellDef>Image</th>
-              <td mat-cell *matCellDef="let poster"><img [src]="poster.photoUrl" target="blank"></td>
+              <td mat-cell *matCellDef="let poster"><img [src]="poster.posterUrl" target="blank"></td>
             </ng-container>
     
             <tr mat-header-row *matHeaderRowDef="posterColumns" class="table-row"></tr>          
@@ -43,7 +43,7 @@
             </ng-container>
             <ng-container matColumnDef="image">
               <th mat-header-cell *matHeaderCellDef>Image</th>
-              <td mat-cell *matCellDef="let article"><img [src]="article.photoUrl" target="blank"></td>
+              <td mat-cell *matCellDef="let article"><img [src]="article.postImageUrl" target="blank"></td>
             </ng-container>
     
             <tr mat-header-row *matHeaderRowDef="articleColumns" class="table-row"></tr>

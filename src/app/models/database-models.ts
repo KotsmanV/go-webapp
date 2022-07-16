@@ -21,7 +21,8 @@ interface Poster{
     posterUrl:string,
     postImageUrl:string,
     dateUploaded:Date |null,
-    dateReleased:Date |null
+    dateReleased:Date |null,
+    type:string
 }
 
 class Poster implements Poster{
@@ -43,7 +44,8 @@ interface Presentation{
     coverUrl:string,
     pdfUrl:string,
     dateReleased:Date | null,
-    dateUploaded:Date | null
+    dateUploaded:Date | null,
+    type:string
 }
 
 class Presentation implements Presentation{
@@ -71,7 +73,8 @@ interface Article {
     text:string,
     postImageUrl:string,
     dateReleased:Date | null,
-    dateUploaded:Date | null
+    dateUploaded:Date | null,
+    type:string
 }
 
 class Article{
@@ -92,7 +95,8 @@ interface Festival{
     posterUrl:string,
     coverUrls:string[],
     dateReleased:Date | null,
-    dateUploaded:Date | null
+    dateUploaded:Date | null,
+    type:string
 }
 
 interface FluidObj {

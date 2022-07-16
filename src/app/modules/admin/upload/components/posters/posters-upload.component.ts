@@ -26,7 +26,7 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.minLength(5)
     ]),
-    photoUrl: new FormControl(``),
+    posterUrl: new FormControl(``),
     dateReleased: new FormControl(),
     text: new FormControl(``)
   },[
@@ -56,7 +56,7 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
     this.getPosterUrls();
 
     this.modalService.selectedImageUrl.subscribe((selectedUrl)=>{
-      this.posterForm.get(`photoUrl`)?.setValue(selectedUrl);
+      this.posterForm.get(`posterUrl`)?.setValue(selectedUrl);
       this.selectedUrl = selectedUrl;
     });
 
@@ -81,16 +81,15 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
 
   fillForm(poster:any){
     this.posterForm.get(`title`)?.setValue(poster.title);
-    // this.posterForm.get(`photoUrl`)?.setValue(poster.photoUrl);
-    this.selectedUrl = poster.photoUrl;
+    // this.posterForm.get(`posterUrl`)?.setValue(poster.posterUrl);
+    this.selectedUrl = poster.posterUrl;
     this.posterForm.get(`text`)?.setValue(poster.text);
     this.posterForm.get(`dateReleased`)?.setValue(new Date(poster.dateReleased.seconds * 1000));
-    this.selectedUrl = poster.photoUrl;
   }
 
   createPoster(){
     this.poster.title = this.posterForm.get(`title`)?.value;
-    this.poster.posterUrl = this.poster.postImageUrl =  this.posterForm.get(`photoUrl`)?.value;
+    this.poster.posterUrl = this.poster.postImageUrl =  this.posterForm.get(`posterUrl`)?.value;
     this.poster.text = this.posterForm.get(`text`)?.value;
     this.poster.dateUploaded = new Date();
     this.poster.dateReleased = this.posterForm.get(`dateReleased`)?.value;
@@ -157,7 +156,7 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
       if(this.file || !this.selectedUrl){
         let filepath = this.fileUpload.formatFileBucketName(FileBuckets.poster, this.poster.title, this.file.name);
         try{
-          this.poster.posterUrl = await this.fileUpload.uploadFile(this.file, filepath);
+          this.poster.posterUrl = this.poster.postImageUrl = await this.fileUpload.uploadFile(this.file, filepath);
         }catch(e){
           console.error(e);
           this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
@@ -178,7 +177,7 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
       // let filepath = this.fileUpload.formatFileBucketName(FileBuckets.poster, this.poster.title, this.file.name);
       // this.fileUpload.uploadFile(this.file, filepath)
       // .then(imageUrl =>{
-      //   this.poster.photoUrl = imageUrl;
+      //   this.poster.posterUrl = imageUrl;
       // }).then(()=>{
       //   this.uploadPoster();
       // }).then(()=>{

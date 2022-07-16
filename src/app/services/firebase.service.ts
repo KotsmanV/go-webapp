@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FirebaseApp, getApp, initializeApp } from 'firebase/app'
-import { addDoc, collection, collectionGroup, doc, Firestore, getDoc, getDocs, getFirestore, limit, orderBy, query, updateDoc, where } from 'firebase/firestore'
+import { addDoc, collection, collectionGroup, doc, Firestore, getDoc, getDocs, getFirestore, limit, orderBy, query, startAfter, startAt, updateDoc, where } from 'firebase/firestore'
+import { type } from 'os';
+import { start } from 'repl';
+import { skip } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Article, DocumentTypes, Festival, FluidObj, GameOverDocument, Poster, Presentation } from '../models/database-models';
 
@@ -188,21 +191,39 @@ export class FirebaseService {
 
     let documentTypes = Object.values(DocumentTypes);
     for (let i = 0; i < documentTypes.length; i++){
-      let doc = await this.getLatestDocument(documentTypes[i]);
+      let doc = await this.getDocuments(documentTypes[i], 1);
       if(doc){
         latest.push(doc);
       }
     }
+    console.log(latest);
     return latest;
   }
 
-  async getLatestDocument(documentType:DocumentTypes){
-    let documents = query(collection(this.db, documentType), orderBy(`dateUploaded`, `desc`), limit(1));
+  async getDocuments(documentType:DocumentTypes, length:number){
+    let documents = query(collection(this.db, documentType), orderBy(`dateUploaded`, `desc`),limit(length), startAfter(`dateUploaded`));
     return await getDocs(documents).then(response=>{
       if(response.docs.length > 0){
-        return response.docs[0].data() as GameOverDocument;
+        let doc = response.docs[0].data() as GameOverDocument;
+        doc.id = response.docs[0].id;
+        return doc;
       }
       return;
+    });
+  }
+
+  async getDocuments2(documentType:DocumentTypes, length:number){
+    let documents = query(collection(this.db, `${documentType}`), orderBy(`dateReleased`, `desc`), startAt(`dateReleased`), limit(length));
+    return await getDocs(documents).then(response=>{
+      let documentsArray:GameOverDocument[] = [];
+      if(response.docs){
+        response.docs.forEach(d=>{
+          let doc = d.data() as GameOverDocument;
+          doc.id = d.id;
+          documentsArray.push(doc);
+        });
+      }
+      return documentsArray;
     });
   }
 

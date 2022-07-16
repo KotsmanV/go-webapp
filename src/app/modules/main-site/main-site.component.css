@@ -5,4 +5,13 @@
     margin: 0 auto;
 
     gap:2rem;
+
+    padding-bottom:10rem;
 }
+
+
+
+.component-container{
+    max-width: 100%;
+}
+

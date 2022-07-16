@@ -1,0 +1,20 @@
+<div class="component-container">
+  <div class="grid-holder">
+    <app-single-post *ngFor="let doc of documents" [document]="doc"></app-single-post>
+
+    <!-- <div class="grid-item" *ngFor="let doc of documents">
+            <div class="image-holder">
+                <img [src]="doc.postImageUrl">
+            </div>
+            <div class="content">
+                <h4 class="doc-heading">
+                    <span class="heading-date">{{showDate(doc.dateReleased) | date:'dd/MM/YYYY':'el-GR' }} </span> / 
+                    <span class="heading-text">{{doc.title}}</span>
+                </h4>
+                <div class="synopsis">
+                    <span>{{showSynopsis(doc.text)}}</span>
+                </div>
+            </div>
+        </div> -->
+  </div>
+</div>

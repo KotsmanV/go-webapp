@@ -1,31 +1,10 @@
-.heading, .post-heading{
-    padding:0;
-    margin:0;
-}
-
-.heading{
-    color: var(--blue);
-}
-
-
-.post-heading:hover{
-    cursor: pointer;
-    text-decoration: underline;
-}
-
 .heading-date{
     color: var(--blue);
 }
 
-.heading-text{
-    color: #000000;    
-}
-
-.page-container{
-    display: grid;
-    grid-template-columns: 1.5fr 4fr;
-
-    gap:5rem;
+.post-heading, p{
+    padding:0;
+    margin:0;
 }
 
 .go-to-button{
@@ -38,13 +17,6 @@
     cursor: pointer;
     background-color: var(--blue);
     color: #f0f0f0;
-}
-
-.latest-list{
-    display: grid;
-    grid-auto-rows: 15rem;
-
-    gap:2rem;
 }
 
 .post-single{
@@ -66,8 +38,9 @@
 .post-content{
     display: grid;
     grid-auto-flow: row;
-    gap:0.5rem;
-    grid-template-rows: 0.5fr 3fr 0.5fr;
+    gap:1rem;
+    grid-template-rows: 1fr 3fr 0.5fr;
+    /* grid-template-rows: repeat(2, minmax(min-content,max-content)) 0.5fr; */
 }
 
 .post-text{
