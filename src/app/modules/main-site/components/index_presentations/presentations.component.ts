@@ -14,7 +14,7 @@ export class PresentationsComponent implements OnInit {
   presentations:Presentation[] = [];
 
   ngOnInit(): void {
-    this.getPresentations(10);
+    this.getPresentations(9);
   }
 
   getPresentations(length:number){

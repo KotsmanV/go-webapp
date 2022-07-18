@@ -1,0 +1,18 @@
+.document-wrapper{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    
+    gap:2rem;
+}
+
+.poster-holder img{
+    max-width: 100%;
+}
+
+.post-heading{
+    margin: 0;
+    padding: 0;
+}
+.heading-date{
+    color:var(--blue)
+}

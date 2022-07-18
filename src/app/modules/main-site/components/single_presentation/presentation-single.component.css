@@ -1,0 +1,30 @@
+.document-wrapper{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    
+    gap:2rem;
+}
+
+.image-holder img{
+    max-width: 100%;
+}
+
+.content-holder{
+    display: grid;
+    gap:1.5rem;
+}
+
+.post-heading{
+    margin: 0;
+    padding: 0;
+}
+
+.heading-date{
+    color:var(--blue)
+}
+
+.download-link{
+    color:var(--blue);
+    font-weight: 700;
+    font-size: 18px;
+}

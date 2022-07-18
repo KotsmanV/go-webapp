@@ -40,8 +40,8 @@
       </div>
       <div class="go-form-row text">
         <label for="document-text">Περιεχόμενο</label>
-        <textarea nbInput id="document-text" formControlName="text" placeholder="Βάλε το κείμενο της αφίσας"
-          fieldSize="large" rows="15" fullWidth></textarea>
+        <editor nbInput [id]="tinymceId" formControlName="text" placeholder="Βάλε το κείμενο της αφίσας"
+          fieldSize="large" rows="15" fullWidth></editor>
       </div>
       <button nbButton class="submit-button" placeholder="Ανέβασε την αφίσα!" type="submit">Αποθηκευση</button>
     </form>

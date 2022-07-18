@@ -1,0 +1,15 @@
+<div class="page-container">
+    <div class="document-wrapper" *ngIf="article; else notFound" >
+        <div class="image-holder">
+            <a [href]="article.postImageUrl" target="_blank"><img [src]="article.postImageUrl"></a>
+        </div>
+        <div class="content-holder">
+            <h4 class="post-heading"><span class="heading-date">{{showDate(article.dateReleased) | date:'dd/MM/YYYY' }} </span> / <span class="heading-text">{{article.title}}</span></h4>
+            <div #textHolder class="poster-text">{{renderTextAsHTML(article.text, textHolder)}}
+            </div>
+        </div>
+    </div>
+    <ng-template #notFound class="doc-not-found">
+        <p>Sorry, fuck you!</p>
+    </ng-template>
+</div>

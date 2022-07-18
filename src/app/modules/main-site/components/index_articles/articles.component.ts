@@ -14,7 +14,7 @@ export class ArticlesComponent implements OnInit {
   articles:Article[] = [];
 
   ngOnInit(): void {
-    this.getArticles(10);
+    this.getArticles(9);
   }
 
   getArticles(length:number){

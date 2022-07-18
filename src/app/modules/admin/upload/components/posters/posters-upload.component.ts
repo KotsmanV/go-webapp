@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { DocumentTypes, FileBuckets, Poster } from 'src/app/models/database-models';
 import { StatusMessage } from 'src/app/models/enums';
+import { generateRandomId } from 'src/app/modules/main-site/helpers/general-helpers';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -19,6 +20,7 @@ import { FileViewModalComponent } from '../file-view-modal/file-view-modal.compo
 export class PosterUploadComponent implements OnInit, OnDestroy {
 
   poster!: Poster;
+  tinymceId = generateRandomId();
   // poster!: Poster | undefined = new Poster();
 
   posterForm = new FormGroup({
@@ -89,10 +91,13 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
 
   createPoster(){
     this.poster.title = this.posterForm.get(`title`)?.value;
-    this.poster.posterUrl = this.poster.postImageUrl =  this.posterForm.get(`posterUrl`)?.value;
+    if(this.posterForm.get(`posterUrl`)?.value){
+      this.poster.posterUrl = this.poster.postImageUrl =  this.posterForm.get(`posterUrl`)?.value;
+    }
     this.poster.text = this.posterForm.get(`text`)?.value;
     this.poster.dateUploaded = new Date();
     this.poster.dateReleased = this.posterForm.get(`dateReleased`)?.value;
+    this.poster.type = `posters`;
   }
 
   getFile(eventTarget: any) {

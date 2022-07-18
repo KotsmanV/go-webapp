@@ -30,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PdfViewerModalComponent } from './components/modals/pdf-viewer-modal/pdf-viewer-modal.component';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,11 @@ import { PdfViewerModalComponent } from './components/modals/pdf-viewer-modal/pd
     NbDialogModule.forRoot(),
     NbDatepickerModule.forRoot(),
     MatTableModule,
-    PdfViewerModule
+    PdfViewerModule,
+    EditorModule
+  ],
+  providers:[
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
   ]
 })
 export class UploadModule { }

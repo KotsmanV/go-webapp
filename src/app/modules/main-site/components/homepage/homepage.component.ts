@@ -15,8 +15,8 @@ export class HomepageComponent extends CommonComponentFunctionality implements O
   isLoaderVisible:boolean = true;
   latestPosts: GameOverDocument[] = [];
 
-  constructor(router:Router, private firebase:FirebaseService, private storageService:DataStorageService) { 
-    super(router);
+  constructor(router:Router, private firebase:FirebaseService, dataStorage:DataStorageService) { 
+    super(router, dataStorage);
   }
 
   ngOnInit(): void {
@@ -25,10 +25,10 @@ export class HomepageComponent extends CommonComponentFunctionality implements O
 
   async populateLatestPosts(){
     this.isLoaderVisible = true;
-    if(this.storageService.latestDocuments.length == 0){
-      this.latestPosts = this.storageService.latestDocuments = await this.firebase.getLatestDocuments();
+    if(this.dataStorage!.latestDocuments.length == 0){
+      this.latestPosts = this.dataStorage!.latestDocuments = await this.firebase.getLatestDocuments();
     }else{
-      this.latestPosts = this.storageService.latestDocuments;
+      this.latestPosts = this.dataStorage!.latestDocuments;
     }
     this.isLoaderVisible = false;
   }

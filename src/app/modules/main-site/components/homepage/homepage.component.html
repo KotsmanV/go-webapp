@@ -17,7 +17,7 @@
     </div>
     <div class="latest-list">
         <ng-container *ngFor="let post of latestPosts">
-            <app-single-post [document]="post"></app-single-post>
+            <app-single-post [document]="post" [synopsisLength]="200"></app-single-post>
         </ng-container>
         <!-- <div class="post-single" *ngFor="let post of latestPosts" >
             <div class="post-image">

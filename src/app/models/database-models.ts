@@ -54,6 +54,7 @@ class Presentation implements Presentation{
         this.text = text;
         this.dateUploaded = new Date();
         this.dateReleased = dateReleased ?? new Date();
+        this.type = `presentations`;
     }
 
     id = ``;

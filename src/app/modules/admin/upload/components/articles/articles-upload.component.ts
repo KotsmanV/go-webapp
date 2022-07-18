@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { Article, DocumentTypes, FileBuckets } from 'src/app/models/database-models';
 import { StatusMessage } from 'src/app/models/enums';
+import { generateRandomId } from 'src/app/modules/main-site/helpers/general-helpers';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -23,6 +24,7 @@ export class ArticleUploadComponent implements OnInit {
     private modalHelper: ModalHelper,
     private router: Router) { }
 
+  tinymceId = generateRandomId();
   article!: Article;
   allowedFileTypes = this.fileUpload.allowedFileTypes.image;
   selectedUrl!: string;
@@ -67,6 +69,7 @@ export class ArticleUploadComponent implements OnInit {
     this.article.text = this.articleForm.get(`text`)?.value;
     this.article.dateUploaded = new Date();
     this.article.dateReleased = this.articleForm.get(`dateReleased`)?.value;
+    this.article.type = `articles`;
   }
 
 
@@ -105,7 +108,7 @@ export class ArticleUploadComponent implements OnInit {
       return this.firebase.updateDocument(DocumentTypes.article, this.article);
     } else {
       return this.firebase.addDocument(DocumentTypes.article, this.article).then(() => {
-        this.modalHelper.openMessageModal(this.dialogService,StatusMessage.success);
+        this.modalHelper.openMessageModal(this.dialogService, StatusMessage.success);
       })
     }
   }
@@ -118,25 +121,25 @@ export class ArticleUploadComponent implements OnInit {
     if (this.articleForm.valid) {
       this.createArticle();
 
-      if(this.file || !this.selectedUrl){
+      if (this.file || !this.selectedUrl) {
         let filepath = this.fileUpload.formatFileBucketName(FileBuckets.article, this.article.title, this.file.name);
-        try{
+        try {
           this.article.postImageUrl = await this.fileUpload.uploadFile(this.file, filepath);
-        }catch(e){
+        } catch (e) {
           console.error(e);
           this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
-          return;  
+          return;
         }
-      }else{
+      } else {
         this.article.postImageUrl = this.selectedUrl;
       }
 
-      this.uploadArticle().then(()=>{
+      this.uploadArticle().then(() => {
         this.modalHelper.openMessageModal(this.dialogService, StatusMessage.success);
         this.router.navigate([`admin/upload/index`]);
       }).catch(error => {
         console.error(error);
-        this.modalHelper.openMessageModal(this.dialogService,StatusMessage.error);
+        this.modalHelper.openMessageModal(this.dialogService, StatusMessage.error);
       });;
 
       // let filepath = this.fileUpload.formatFileBucketName(FileBuckets.article, this.article.title, this.file.name);

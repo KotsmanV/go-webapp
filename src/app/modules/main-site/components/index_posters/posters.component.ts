@@ -14,7 +14,7 @@ export class PostersComponent implements OnInit {
   posters:Poster[] = [];
 
   ngOnInit(): void {
-    this.getPosters(10);
+    this.getPosters(9);
   }
 
   getPosters(length:number){
