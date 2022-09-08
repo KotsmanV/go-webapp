@@ -26,8 +26,10 @@ class CommonComponentFunctionality{
       }
 
     showSynopsis(text:string, length:number){
-    return Array.from(text).slice(0,length).join(``).concat(`...`);
-    // return text.split(` `).slice(0,25).join(` `).concat(`...`);
+        if(text){
+            return Array.from(text).slice(0,length).join(``).concat(`...`);
+        }
+        return ``;
     }
 
     renderTextAsHTML(text:string, elementRef:HTMLElement){

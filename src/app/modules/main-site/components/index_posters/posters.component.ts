@@ -18,7 +18,7 @@ export class PostersComponent implements OnInit {
   }
 
   getPosters(length:number){
-    this.firebase.getDocuments2(DocumentTypes.poster,length).then(resp=>{
+    this.firebase.getDocuments2(DocumentTypes.poster,length, `dateReleased`,`desc`).then(resp=>{
       this.posters = resp as Poster[];
       console.table(this.posters)
     })

@@ -79,3 +79,36 @@
     width: 5rem;
     justify-self: baseline;
 }
+
+@media screen and (max-width:1024px){
+    .page-container{
+        grid-template-columns: unset;
+        gap:2rem;
+    }
+    .sidebar{
+        display: grid;
+        order: 1;
+    }
+
+    .sidebar p{
+        columns: 2;
+    }
+
+    .sidebar .go-to-button{
+        justify-self: right;
+    }
+}
+
+@media screen and (max-width:768px){
+    
+}
+
+@media screen and (max-width:540px){
+    .latest-list{
+        grid-auto-rows: unset;
+    }
+
+    .sidebar p{
+        columns: unset;
+    }
+}

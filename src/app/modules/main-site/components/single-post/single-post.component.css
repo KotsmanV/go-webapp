@@ -60,3 +60,19 @@
     width: 5rem;
     justify-self: baseline;
 }
+
+@media screen and (max-width:1024px){
+
+}
+
+@media screen and (max-width:768px){
+    
+}
+
+@media screen and (max-width:540px){
+    .post-single{
+        place-items: center;
+        grid-auto-flow: row;
+        grid-template-columns: unset;
+    }
+}

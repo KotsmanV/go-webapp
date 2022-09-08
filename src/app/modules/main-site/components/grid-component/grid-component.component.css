@@ -1,3 +1,11 @@
+:host{
+    max-width: 100%;
+}
+
+.component-container{
+    max-width: 100%;
+}
+
 .grid-holder{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -31,4 +39,25 @@
 .heading-date{
     color: var(--blue);
 }
+
+
+@media screen and (max-width:1024px){
+    .grid-holder{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+}
+
+@media screen and (max-width:768px){
+    
+}
+
+@media screen and (max-width:540px){
+    .grid-holder{
+        grid-template-columns: unset;
+        grid-auto-flow: row;
+    }
+}
+
 

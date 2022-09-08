@@ -51,7 +51,7 @@
           </table>
 
         </nb-tab>
-        <nb-tab [tabTitle]="documentTypes.festival">
+        <!-- <nb-tab [tabTitle]="documentTypes.festival">
           <table mat-table [dataSource]="festivalDatasource"  *ngIf="festivals">
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef>Title</th>
@@ -85,7 +85,7 @@
             <tr mat-header-row *matHeaderRowDef="festivalColumns" class="table-row"></tr>
             <tr mat-row *matRowDef="let row; columns: festivalColumns" class="table-row"></tr>
           </table>
-        </nb-tab>
+        </nb-tab> -->
         <nb-tab [tabTitle]="documentTypes.presentation">
           <table mat-table [dataSource]="presentationDatasource" *ngIf="presentations">
             <ng-container matColumnDef="title">

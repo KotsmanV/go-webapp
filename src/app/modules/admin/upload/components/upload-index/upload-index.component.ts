@@ -60,9 +60,8 @@ export class UploadIndexComponent implements OnInit {
 
   populatePostersArray() {
     if (!this.posters) {
-      this.firebase.getPosters().then(response => {
+      this.firebase.getDocuments2(DocumentTypes.poster, 10, `dateUploaded`, `desc`).then(response => {
         this.posters = this.dataStorage.posters = response as Poster[];
-        console.table(response);
         this.posterDatasource = new MatTableDataSource<Poster>(this.posters);
       });
     } else {

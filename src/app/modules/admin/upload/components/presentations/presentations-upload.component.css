@@ -34,6 +34,13 @@
     grid-template-rows: unset;
     grid-auto-flow: row;
 }
+
+.textarea-header{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+}
+
 .image-selection-container{
     display: grid;
     grid-auto-flow: column;

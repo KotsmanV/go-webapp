@@ -9,9 +9,24 @@
     padding-bottom:10rem;
 }
 
-
-
 .component-container{
     max-width: 100%;
+}
+
+@media screen and (max-width:1024px){
+    .main-site-container{
+        max-width: none;
+        margin:0 2rem
+    }
+}
+
+@media screen and (max-width:768px){
+    
+}
+
+@media screen and (max-width:540px){
+    .main-site-container{
+        margin:0 1rem
+    }
 }
 

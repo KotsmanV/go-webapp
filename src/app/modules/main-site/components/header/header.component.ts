@@ -13,6 +13,19 @@ export class HeaderComponent extends CommonComponentFunctionality implements OnI
     super(router)
   }
 
+  showMenu:boolean = false;
+
   ngOnInit(): void {
+  }
+
+  showMenuOnClick(menuElement:HTMLDivElement, crosses:HTMLDivElement){
+    this.showMenu = !this.showMenu;
+    if(this.showMenu){
+      menuElement.classList.add(`show-element`);
+      crosses.classList.add(`crosses-right`);
+    }else{
+      menuElement.classList.remove(`show-element`);
+      crosses.classList.remove(`crosses-right`);
+    }
   }
 }

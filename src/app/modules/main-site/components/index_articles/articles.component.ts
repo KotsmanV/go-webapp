@@ -18,7 +18,7 @@ export class ArticlesComponent implements OnInit {
   }
 
   getArticles(length:number){
-    this.firebase.getDocuments2(DocumentTypes.article,length).then(resp=>{
+    this.firebase.getDocuments2(DocumentTypes.article,length,`dateReleased`,`desc`).then(resp=>{
       this.articles = resp as Article[];
       console.table(this.articles)
     })

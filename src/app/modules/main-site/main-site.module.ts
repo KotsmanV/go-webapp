@@ -22,6 +22,8 @@ import { ArticleSingleComponent } from './components/single_article/article-sing
 import { SinglePostComponent } from './components/single-post/single-post.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { GridComponentComponent } from './components/grid-component/grid-component.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+
 
 
 @NgModule({
@@ -46,6 +48,7 @@ import { GridComponentComponent } from './components/grid-component/grid-compone
     LoaderComponent,
     GridComponentComponent,
     SinglePostComponent,
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,

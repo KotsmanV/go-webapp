@@ -18,7 +18,7 @@ export class PresentationsComponent implements OnInit {
   }
 
   getPresentations(length:number){
-    this.firebase.getDocuments2(DocumentTypes.presentation,length).then(resp=>{
+    this.firebase.getDocuments2(DocumentTypes.presentation,length,`dateReleased`,`desc`).then(resp=>{
       this.presentations = resp as Presentation[];
       console.table(this.presentations)
     })

@@ -3,5 +3,5 @@ function generateRandomId() {
 }
 
 export {
-    generateRandomId
+    generateRandomId,
 }

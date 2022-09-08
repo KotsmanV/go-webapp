@@ -18,12 +18,12 @@ export class AdminDashboardComponent implements OnInit {
     this.account.signOutUser();
   }
   menuItems: NbMenuItem[] = [
-    {
-      title: `dashboard`,
-      link: `/admin`,
-      home: true,
-      icon: `home-outline`
-    },
+    // {
+    //   title: `dashboard`,
+    //   link: `/admin`,
+    //   home: true,
+    //   icon: `home-outline`
+    // },
     {
       title: `upload`,
       link: `upload/index`,
@@ -42,22 +42,22 @@ export class AdminDashboardComponent implements OnInit {
           title: `presentations`,
           link: `upload/presentation`
         },
-        {
-          title: `festivals`,
-          link: `upload/festival`
-        },
+        // {
+        //   title: `festivals`,
+        //   link: `upload/festival`
+        // },
         {
           title: `articles`,
           link: `upload/article`
         },
-        {
-          title: `texts`,
-          link: `upload/text`
-        },
-        {
-          title: `magazines`,
-          link: `upload/magazine`
-        },
+        // {
+        //   title: `texts`,
+        //   link: `upload/text`
+        // },
+        // {
+        //   title: `magazines`,
+        //   link: `upload/magazine`
+        // },
       ]
 
     },
@@ -76,10 +76,10 @@ export class AdminDashboardComponent implements OnInit {
     //   link: `users`,
     //   icon: `lock-outline`
     // },
-    {
-      title:`logout`,
-      icon:`key-outline`
-    }
+    // {
+    //   title:`logout`,
+    //   icon:`key-outline`
+    // }
   ]
 
 

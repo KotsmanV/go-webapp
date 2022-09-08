@@ -37,7 +37,8 @@ export class ArticleUploadComponent implements OnInit {
     ]),
     image: new FormControl(``),
     dateReleased: new FormControl(new Date()),
-    text: new FormControl(``)
+    text: new FormControl(``),
+    synopsis: new FormControl(``)
   })
 
   ngOnInit(): void {
@@ -49,24 +50,24 @@ export class ArticleUploadComponent implements OnInit {
         console.error(error);
       })
     }
-    else {
-      this.article = new Article();
-    }
   }
 
   fillForm(article: any) {
     this.articleForm.get(`title`)?.setValue(article.title);
     // this.articleForm.get(`image`)?.setValue(article.photoUrl);
-    this.selectedUrl = article.photoUrl;
     this.articleForm.get(`text`)?.setValue(article.text);
+    this.articleForm.get(`synopsis`)?.setValue(article.synopsis);
     this.articleForm.get(`dateReleased`)?.setValue(new Date(article.dateReleased?.seconds * 1000));
-    this.selectedUrl = article.photoUrl;
+    this.selectedUrl = article.postImageUrl;
   }
 
   createArticle() {
+    if(!this.article){
+      this.article = new Article();
+    }
     this.article.title = this.articleForm.get(`title`)?.value;
-    // this.article.photoUrl = this.articleForm.get(`image`)?.value;
     this.article.text = this.articleForm.get(`text`)?.value;
+    this.article.synopsis = this.articleForm.get(`synopsis`)?.value;
     this.article.dateUploaded = new Date();
     this.article.dateReleased = this.articleForm.get(`dateReleased`)?.value;
     this.article.type = `articles`;

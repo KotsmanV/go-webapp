@@ -30,7 +30,8 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
     ]),
     posterUrl: new FormControl(``),
     dateReleased: new FormControl(),
-    text: new FormControl(``)
+    text: new FormControl(``),
+    synopsis: new FormControl(``)
   },[
     
   ])
@@ -86,6 +87,7 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
     // this.posterForm.get(`posterUrl`)?.setValue(poster.posterUrl);
     this.selectedUrl = poster.posterUrl;
     this.posterForm.get(`text`)?.setValue(poster.text);
+    this.posterForm.get(`synopsis`)?.setValue(poster.synopsis);
     this.posterForm.get(`dateReleased`)?.setValue(new Date(poster.dateReleased.seconds * 1000));
   }
 
@@ -97,6 +99,7 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
     this.poster.text = this.posterForm.get(`text`)?.value;
     this.poster.dateUploaded = new Date();
     this.poster.dateReleased = this.posterForm.get(`dateReleased`)?.value;
+    this.poster.synopsis = this.posterForm.get(`synopsis`)?.value;
     this.poster.type = `posters`;
   }
 
@@ -216,14 +219,4 @@ export class PosterUploadComponent implements OnInit, OnDestroy {
       }
     })    
   }
-    
-    // openFileDisplayModal = this.htmlHelpers.openFileDisplayModal;
-    
-  //   then(urls=>{
-  //     console.table(urls);      
-  //     if(Array.isArray(urls)){
-  //       this.posterUrls = urls;        
-  //     }
-  //   })
-  // }
 }

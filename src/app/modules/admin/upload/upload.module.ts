@@ -31,6 +31,7 @@ import { MatTableModule } from '@angular/material/table';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PdfViewerModalComponent } from './components/modals/pdf-viewer-modal/pdf-viewer-modal.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { CharCounterComponent } from './components/char-counter/char-counter.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
     PresentationUploadComponent,
     ArticleUploadComponent,
     InfoMessageModalComponent,
-    PdfViewerModalComponent
+    PdfViewerModalComponent,
+    CharCounterComponent
   ],
   imports: [
     CommonModule,

@@ -1,19 +1,35 @@
 <div class="header-container">
-    <div class="navbar">
-        <div class="logo">
-            <img src="/assets/img/logogameover.svg">
-        </div>
-        <div class="menu">
-           <span class="menu-item" (click)="navigateTo('')">ΑΡΧΙΚΗ</span>
-           <span class="menu-item" (click)="navigateTo('posters')">ΑΦΙΣΕΣ</span>
-           <span class="menu-item" (click)="navigateTo('articles')">ΑΡΘΡΑ</span> 
-           <span class="menu-item" (click)="navigateTo('presentations')">ΕΙΣΗΓΗΣΕΙΣ</span> 
-           <!-- <span class="menu-item" (click)="navigateTo('festivals')">ΦΕΣΤΙΒΑΛ</span>  -->
-           <span class="menu-item" (click)="navigateTo('about')">ΣΧΕΤΙΚΑ ΜΕ ΜΑΣ</span>
-        </div>
+  <div class="navbar">
+    <div class="logo">
+      <img src="/assets/img/logogameover.svg">
     </div>
-    <div class="banner">
-        <img src="/assets/img/banner.png">
+    <div class="menu" #menu>
+      <span class="menu-item" (click)="navigateTo('')">ΑΡΧΙΚΗ</span>
+      <span class="menu-item" (click)="navigateTo('posters')">ΑΦΙΣΕΣ</span>
+      <span class="menu-item" (click)="navigateTo('articles')">ΑΡΘΡΑ</span>
+      <span class="menu-item" (click)="navigateTo('presentations')">ΕΙΣΗΓΗΣΕΙΣ</span>
+      <!-- <span class="menu-item" (click)="navigateTo('festivals')">ΦΕΣΤΙΒΑΛ</span>  -->
+      <span class="menu-item" (click)="navigateTo('about')">ΣΧΕΤΙΚΑ ΜΕ ΜΑΣ</span>
     </div>
-</div>
 
+
+    <button class="mobile-menu" (click)="showMenuOnClick(mobileMenu, crosses)">
+        <div #crosses class="crosses">
+            <span>+++</span>
+        </div>
+      <div class="menu" #mobileMenu>
+        <span class="menu-item" (click)="navigateTo('')">ΑΡΧΙΚΗ</span>
+        <span class="menu-item" (click)="navigateTo('posters')">ΑΦΙΣΕΣ</span>
+        <span class="menu-item" (click)="navigateTo('articles')">ΑΡΘΡΑ</span>
+        <span class="menu-item" (click)="navigateTo('presentations')">ΕΙΣΗΓΗΣΕΙΣ</span>
+        <!-- <span class="menu-item" (click)="navigateTo('festivals')">ΦΕΣΤΙΒΑΛ</span>  -->
+        <span class="menu-item" (click)="navigateTo('about')">ΣΧΕΤΙΚΑ ΜΕ ΜΑΣ</span>
+      </div>
+    </button>
+
+
+  </div>
+  <div class="banner">
+    <img src="/assets/img/banner.png">
+  </div>
+</div>

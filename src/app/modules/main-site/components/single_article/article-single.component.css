@@ -16,3 +16,18 @@
 .heading-date{
     color:var(--blue)
 }
+
+@media screen and (max-width:1024px){
+
+}
+
+@media screen and (max-width:768px){
+    
+}
+
+@media screen and (max-width:540px){
+ .document-wrapper{
+    grid-template-columns: unset;
+    justify-items: center;
+ }   
+}
