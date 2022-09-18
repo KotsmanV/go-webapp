@@ -2,4 +2,5 @@
   <div class="grid-holder">
     <app-single-post *ngFor="let doc of documents" [document]="doc"></app-single-post>
   </div>
+  <button class="more-button" *ngIf="documents.length > 0" (click)="getMore()">+++</button>
 </div>

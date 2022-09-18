@@ -3,6 +3,7 @@
         <h3 class="heading">ΕΙΣΗΓΗΣΕΙΣ</h3>
     </div>
     <div class="content">
-        <app-grid-component [documents]="presentations"></app-grid-component>
+        <app-grid-component [documents]="presentations" (moreButton)="onMoreButtonClicked($event)"></app-grid-component>
+        <app-loader *ngIf="isLoaderVisible" [isLoaderVisible]="isLoaderVisible" ></app-loader>
     </div>
 </div>

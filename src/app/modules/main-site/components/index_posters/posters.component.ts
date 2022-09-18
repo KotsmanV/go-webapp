@@ -12,16 +12,26 @@ export class PostersComponent implements OnInit {
   constructor(private firebase:FirebaseService) { }
 
   posters:Poster[] = [];
+  length:number = 9;
+  isLoaderVisible:boolean = false;
 
   ngOnInit(): void {
-    this.getPosters(9);
+    this.getPosters(this.length);
   }
 
   getPosters(length:number){
+    this.isLoaderVisible = true;
     this.firebase.getDocuments2(DocumentTypes.poster,length, `dateReleased`,`desc`).then(resp=>{
       this.posters = resp as Poster[];
-      console.table(this.posters)
+      this.isLoaderVisible = false;
     })
+  }
+
+  onMoreButtonClicked(eventData:boolean){
+    if(eventData){
+      this.length += 9;
+      this.getPosters(this.length);
+    }
   }
 
 }

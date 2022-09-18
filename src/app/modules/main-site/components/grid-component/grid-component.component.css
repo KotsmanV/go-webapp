@@ -4,6 +4,9 @@
 
 .component-container{
     max-width: 100%;
+    display: grid;
+    place-items: center;
+    gap:3rem;
 }
 
 .grid-holder{
@@ -38,6 +41,19 @@
 
 .heading-date{
     color: var(--blue);
+}
+
+.more-button{
+    color: var(--blue);
+    width: 8rem;
+    border: 1px solid var(--blue);
+    border-radius: 6px;
+}
+
+.more-button:hover{
+    cursor: pointer;
+    background-color: var(--blue);
+    color: #f0f0f0;
 }
 
 

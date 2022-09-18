@@ -194,7 +194,6 @@ export class FirebaseService {
         latest.push(doc);
       }
     }
-    console.log(latest);
     return latest;
   }
 
