@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseApp, getApp, initializeApp } from 'firebase/app';
-import { Auth, browserLocalPersistence, getAuth, setPersistence, signInAnonymously, signInWithCredential, signInWithCustomToken, signInWithEmailAndPassword, signOut, User } from 'firebase/auth'
-import jwtDecode from 'jwt-decode';
-import { ReplaySubject, retry, Subject } from 'rxjs';
+import { Auth, browserLocalPersistence, getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, User } from 'firebase/auth';
+import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { FirebaseJwt } from '../models/helper-models';
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,12 +42,16 @@ export class AccountService {
   }
 
   async signInAnonymous() {
-    await this.auth.setPersistence(browserLocalPersistence);
-    await signInAnonymously(this.auth).then(()=> {
-      return true;
-    }).catch(error => {
-      console.error(error);
-      return false;
+    await this.auth.setPersistence(browserLocalPersistence).then(async ()=>{
+      await signInAnonymously(this.auth).then(()=> {
+        this.hasLoggedIn.next(true);
+        return true;
+      }).catch(error => {
+        console.error(error);
+        this.hasLoggedIn.next(false);
+        return false;
+      })
+
     })
   }
 

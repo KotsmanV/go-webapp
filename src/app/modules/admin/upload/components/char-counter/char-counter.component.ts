@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CharCounterComponent implements OnInit {
 
   @Input() textareaElement!: HTMLTextAreaElement;
+  @Input() characterCount:number = 200;
 
   constructor() { }
 

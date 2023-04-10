@@ -8,10 +8,12 @@ import { AccountService } from 'src/app/services/account.service';
 })
 export class MainSiteComponent implements OnInit {
 
-  constructor(private accountService:AccountService) { }
+  constructor(private accountService:AccountService) { 
+    this.accountService.signInAnonymous()
+  }
 
   ngOnInit(): void {
-    this.accountService.signInAnonymous();
+    
   }
 
 }
