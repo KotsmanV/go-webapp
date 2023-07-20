@@ -1,1 +1,82 @@
-<p>magazines works!</p>
+<nb-card>
+    <nb-card-header>
+        <h5>Upload - Περιοδικά</h5>
+    </nb-card-header>
+    <nb-card-body>
+
+        <form class="go-form magazine" [formGroup]="magazineForm" (ngSubmit)="onFormSubmit()">
+            <div class="form-top-section">
+                <div class="top-section-left-side">
+                    <div class="go-form-row">
+                        <label for="document-title">Τίτλος</label>
+                        <input nbInput id="document-title" formControlName="title" placeholder="Βάλε τίτλο" type="text" autocomplete="off" />
+                        <span *ngIf="magazineForm.get('title')?.errors && magazineForm.get('title')?.dirty" class="validation-error-message">
+                            Χρειάζονται τουλάχιστον 5 γράμματα.
+                        </span>
+                    </div>
+
+                    <div class="image-selection-container">
+                        <div class="go-form-row image-selection">
+                            <label for="document-image">Εξώφυλλο</label>
+                            <input nbInput id="document-image" class="image-select-input" formControlName="postImageUrl" type="file"
+                                [accept]="allowedImageTypes" (change)="getFile($event.target, 'postImageUrl'); showFile($event.target, 'postImageUrl')" />
+                            <span *ngIf="magazineForm.get('postImageUrl')?.errors && magazineForm.get('postImageUrl')?.dirty" class="validation-error-message">
+                                Το εξώφυλλο είναι απαραίτητο.
+                            </span>
+                            <!-- <input nbInput id="poster-poster" formControlName="poster" type="file" (change)="pushFileToArray($event.target)"/> -->
+                            <!-- <input nbInput id="document-image" formControlName="photoUrl" type="text" hidden />
+              <button nbButton size="small" class="select-image-btn" (click)="openFileDisplayModal($event)">ΔΙΑΛΕΞΕ ΑΦΙΣΑ</button> -->
+                        </div>
+                        <div class="go-form-row image-selection">
+                            <label for="document-image">Τεύχος</label>
+                            <input nbInput id="document-image" class="image-select-input" formControlName="pdf" type="file"
+                                [accept]="allowedDocumentTypes" (change)="getFile($event.target, 'pdf'); showFile($event.target, 'pdf')" />
+                            <span *ngIf="magazineForm.get('pdf')?.errors && magazineForm.get('pdf')?.dirty" class="validation-error-message">
+                                Το τεύχος είναι απαραίτητο.
+                            </span>
+                            <!-- <input nbInput id="poster-poster" formControlName="poster" type="file" (change)="pushFileToArray($event.target)"/> -->
+                            <!-- <input nbInput id="document-image" formControlName="photoUrl" type="text" hidden />
+              <button nbButton size="small" class="select-image-btn" (click)="openFileDisplayModal($event)">ΔΙΑΛΕΞΕ ΑΦΙΣΑ</button> -->
+                        </div>
+                    </div>
+                    <div class="go-form-row date-selection release-date">
+                        <label for="document-release-date">Ημερομηνία έκδοσης</label>
+                        <input nbInput id="document-release-date" placeholder="Βάλε ημερομηνία έκδοσης" [nbDatepicker]="dateReleased"
+                            formControlName="dateReleased">
+                        <nb-datepicker #dateReleased></nb-datepicker>
+                    </div>
+                </div>
+                <div class="top-section-right-side">
+                    <div class="image-container">
+                        <div>
+                            <label>Εξώφυλλο</label>
+                        </div>
+                        <div>
+                            <img [src]="urls.cover" *ngIf="urls.cover">
+                        </div>
+                    </div>
+                    <div class="image-container">
+                        <div>
+                            <label>Τεύχος</label>
+                        </div>
+                        <button nbButton size="tiny" (click)="openPdfModal($event)" [disabled]="!urls.pdf">Δες το pdf</button>
+                    </div>
+                </div>
+            </div>
+            <div class="go-form-row text">
+                <label for="document-text">Περιεχόμενο</label>
+                <editor nbInput [id]="tinymceId" formControlName="text" placeholder="Βάλε το κείμενο της αφίσας"
+                    fieldSize="large" rows="15" fullWidth></editor>
+            </div>
+            <div class="go-form-row text">
+                <div class="textarea-header">
+                  <label for="document-text">Σύνοψη</label>
+                  <app-char-counter [textareaElement]="synopsis"></app-char-counter>
+                </div>
+                <textarea nbInput #synopsis formControlName="synopsis" placeholder="Βάλε σύνοψη μέχρι 200 χαρακτήρες" maxlength="200"
+                  fieldSize="small" rows="2" fullWidth></textarea>
+              </div>
+            </form>
+            <button nbButton class="submit-button" placeholder="Ανέβασε την αφίσα!" type="submit">Αποθηκευση</button>
+    </nb-card-body>
+</nb-card>

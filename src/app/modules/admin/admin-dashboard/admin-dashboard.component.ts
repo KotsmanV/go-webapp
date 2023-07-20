@@ -54,10 +54,10 @@ export class AdminDashboardComponent implements OnInit {
         //   title: `texts`,
         //   link: `upload/text`
         // },
-        // {
-        //   title: `magazines`,
-        //   link: `upload/magazine`
-        // },
+        {
+          title: `magazines`,
+          link: `upload/magazine`
+        },
       ]
 
     },

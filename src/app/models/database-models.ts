@@ -104,11 +104,51 @@ interface Festival{
     type:string
 }
 
+interface Magazine{
+    id:string;
+    title:string;
+    text:string;
+    synopsis:string;
+    postImageUrl:string;
+    pdfUrl:string,
+    dateReleased:Date | null,
+    dateUploaded:Date | null,
+    type:string
+}
+
+class Magazine implements Magazine{
+    constructor(){
+        this.dateUploaded = new Date();
+        this.type = `magazines`;
+    }
+
+    id = ``;
+    title = ``;
+    text = ``;
+    synopsis = ``;
+    postImageUrl = ``;
+    pdfUrl = ``;
+    dateReleased:Date | null = null;
+    dateUploaded:Date | null = null;
+    type:string
+}
+
 interface FluidObj {
 	[key: string]: any
 }
 
-type GameOverDocument = Article | Festival | Poster | Presentation;
+type GameOverDocument = Article | Festival | Poster | Presentation | Magazine;
 type SortingParameter = `title` | `dateReleased` | `dateUploaded` | `dateUpdated`;
 
-export { DocumentTypes, GameOverDocument, SortingParameter,FileBuckets, FluidObj, Article, Festival, Poster, Presentation }
+export { 
+    DocumentTypes, 
+    GameOverDocument, 
+    SortingParameter,
+    FileBuckets, 
+    FluidObj, 
+    Article, 
+    Festival, 
+    Poster, 
+    Presentation,
+    Magazine
+}
