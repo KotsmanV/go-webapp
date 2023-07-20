@@ -16,52 +16,21 @@
         <button class="go-to-button" (click)="navigateTo('about')">+++</button>
     </div>
     <div class="latest-list">
-        <div class="post-single" *ngFor="let post of latestPosts" >
+        <ng-container *ngFor="let post of latestPosts">
+            <app-single-post [document]="post" [synopsisLength]="200"></app-single-post>
+        </ng-container>
+        <!-- <div class="post-single" *ngFor="let post of latestPosts" >
             <div class="post-image">
-                <img [src]="post.postImageUrl"  >
+                <img [src]="post.postImageUrl">
             </div>
             <div class="post-content">
-                <h4 class="post-heading"><span class="heading-date">{{showDate(post.dateUploaded) | date }}</span> / <span class="heading-text">{{post.title}}</span></h4>
+                <h4 class="post-heading"><span class="heading-date">{{showDate(post.dateUploaded) | date:'short' }} </span> / <span class="heading-text">{{post.title}}</span></h4>
                 <div class="post-text">
-                    <p>{{post.text}}</p>
+                    <p>{{showSynopsis(post.text)}}</p>
                 </div>
-                <button class="go-to-button" (click)="navigateTo('articles')">+++</button>
+                <button class="go-to-button" (click)="navigateTo(post.type + '/single',post.id)">+++</button>
             </div>
-        </div>
-        <div class="post-single">
-            <div class="post-image">
-                <img src="/assets/img/Rectangle.png">
-            </div>
-            <div class="post-content">
-                <h4 class="post-heading"><span class="heading-date">9/5/2022</span> / <span class="heading-text">Lorem ipsum dolor</span></h4>
-                <div class="post-text">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-                        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-                        numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-                        optio, eaque rerum! Provident similique accusantium nemo autem.
-                    </p>
-                </div>
-                <button class="go-to-button" (click)="navigateTo('articles')">+++</button>
-            </div>
-        </div>
-        <div class="post-single">
-            <div class="post-image">
-                <img src="/assets/img/Rectangle.png">
-            </div>
-            <div class="post-content">
-                <h4 class="post-heading"><span class="heading-date">9/5/2022</span> / <span class="heading-text">Lorem ipsum dolor</span></h4>
-                <div class="post-text">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-                        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-                        numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-                        optio, eaque rerum! Provident similique accusantium nemo autem.
-                    </p>
-                </div>
-                <button class="go-to-button" (click)="navigateTo('articles')">+++</button>
-            </div>
-        </div>
-        
+        </div> -->
+        <app-loader *ngIf="latestPosts.length == 0" [isLoaderVisible]="isLoaderVisible" ></app-loader>
     </div>
 </div>

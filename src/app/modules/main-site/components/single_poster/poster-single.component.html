@@ -1,0 +1,15 @@
+<div class="page-container">
+    <div class="document-wrapper" *ngIf="poster; else notFound" >
+        <div class="poster-holder">
+            <a [href]="poster.posterUrl" target="_blank"><img [src]="poster.posterUrl"></a>
+        </div>
+        <div class="content-holder">
+            <h4 class="post-heading"><span class="heading-date">{{showDate(poster.dateReleased) | date:'dd/MM/YYYY' }} </span> / <span class="heading-text">{{poster.title}}</span></h4>
+            <div #textHolder class="poster-text">{{renderTextAsHTML(poster.text, textHolder)}}
+            </div>
+        </div>
+    </div>
+    <ng-template #notFound>
+        <app-not-found [replacedDocument]="'poster'"></app-not-found>
+    </ng-template>
+</div>

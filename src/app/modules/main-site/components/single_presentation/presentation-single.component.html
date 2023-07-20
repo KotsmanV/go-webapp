@@ -1,0 +1,19 @@
+<div class="page-container">
+    <div class="document-wrapper" *ngIf="presentation; else notFound" >
+        <div class="image-holder">
+            <a [href]="presentation.coverUrl" target="_blank"><img [src]="presentation.coverUrl"></a>
+        </div>
+        <div class="content-holder">
+            <h4 class="post-heading"><span class="heading-date">{{showDate(presentation.dateReleased) | date:'dd/MM/YYYY' }} </span> / <span class="heading-text">{{presentation.title}}</span></h4>
+            <div #textHolder class="poster-text">{{renderTextAsHTML(presentation.text, textHolder)}}
+            </div>
+            <div class="download-button">
+                
+                <a class="download-link" [href]="presentation.pdfUrl" target="_blank">Κατέβασε την εισήγηση εδώ!</a>
+            </div>
+        </div>
+    </div>
+    <ng-template #notFound>
+        <app-not-found [replacedDocument]="'presentation'"></app-not-found>
+    </ng-template>
+</div>

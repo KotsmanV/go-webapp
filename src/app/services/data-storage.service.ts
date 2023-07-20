@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Article, Festival, Poster, Presentation } from '../models/database-models';
+import { Article, Festival, GameOverDocument, Poster, Presentation } from '../models/database-models';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,8 @@ export class DataStorageService {
 
   document!:Poster | Article | Festival | Presentation | undefined;
   documentId!:string;
+
+  latestDocuments:GameOverDocument[] = [];
 
   deleteData(){
     this.articles = undefined;

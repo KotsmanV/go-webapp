@@ -28,7 +28,11 @@
 .go-form-row.text{
     grid-template-rows: 0.2fr 5fr 0.2fr;
 }
-
+.textarea-header{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+}
 .image-selection{
     gap:0.5rem;
 }

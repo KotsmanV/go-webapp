@@ -1,0 +1,7 @@
+.heading{
+    color:var(--blue);
+}
+
+p{
+    max-width: 50rem;
+}

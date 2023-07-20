@@ -1,0 +1,12 @@
+<div class="post-single">
+    <div class="post-image">
+        <img [src]="document.postImageUrl">
+    </div>
+    <div class="post-content">
+        <h4 class="post-heading"><span class="heading-date">{{showDate(document.dateUploaded) | date:'dd/MM/YYYY' }} </span> / <span class="heading-text">{{document.title}}</span></h4>
+        <div class="post-text">
+            <p>{{showSynopsis(document.synopsis, synopsisLength)}}</p>
+        </div>
+        <button class="go-to-button" (click)="navigateTo(document.type + '/single',document.id)">+++</button>
+    </div>
+</div>

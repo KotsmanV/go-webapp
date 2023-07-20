@@ -5,3 +5,19 @@
 img{
     width: 100%;
 }
+
+@media screen and (max-width:1024px){
+    img{
+        max-width: 50rem;
+    }
+}
+
+@media screen and (max-width:768px){
+    
+}
+
+@media screen and (max-width:540px){
+    img{
+        max-width: 5rem;
+    }
+}

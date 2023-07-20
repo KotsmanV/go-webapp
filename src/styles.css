@@ -1,11 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 :root{
   --blue: #0000FF;
+  --scrollbar-foreground: red;
+  --scrollbar-background: blue;
 }
 
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html{
+  scrollbar-gutter: stable;  
+}
+
+*::-webkit-scrollbar {
+  width: 0.2rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--blue);
+  border-radius: 20px;
+}
+
 
 
 nb-layout-header nav {
